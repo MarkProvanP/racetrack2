@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from "@agm/core";
 
@@ -12,8 +12,10 @@ import { ROUTES } from './app.routes';
 import { RacetrackMaterialModule } from "./racetrack.material.module";
 
 import { AppComponent } from './app.component';
+
 import { PublicAppComponent } from './public-app';
 import { PublicMapComponent } from './public-app/public-map';
+import { LoginComponent } from './public-app/login';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -34,6 +36,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     AppComponent,
     PublicAppComponent,
     PublicMapComponent,
+    LoginComponent,
     LocationWidget,
     PhoneWidget,
     TextWidget,
@@ -52,6 +55,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     BrowserAnimationsModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     RacetrackMaterialModule,
     AgmCoreModule.forRoot({
       apiKey: GOOGLE_MAPS_API_KEY
