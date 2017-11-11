@@ -4,6 +4,17 @@
     "secure": false,
     "pathRewrite": {
       "^/r2bcknd": ""
-    }
+    },
+    "logLevel": "debug"
+  },
+  "/socket.io": {
+    "target": "http://localhost:5000/socket.io",
+    "secure": false,
+    "pathRewrite": {
+      "^/socket\\.io": ""
+    },
+    "changeOrigin": true,
+    "ws": true,
+    "logLevel": "debug"
   }
 }

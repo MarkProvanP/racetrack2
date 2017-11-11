@@ -1,0 +1,70 @@
+<mat-card [ngClass]="getCardClass()" class="dashboard-card">
+  <mat-card-header>
+    <div mat-card-avatar="mat-card-avatar">
+      <h1 [ngStyle]="{&quot;background-color&quot;: team.color}" class="team-number">{{team.id}}</h1>
+    </div>
+    <button mat-icon-button="mat-icon-button" (click)="toggleBig()">
+      <mat-icon *ngIf="isBig">expand_less</mat-icon>
+      <mat-icon *ngIf="!isBig">expand_more</mat-icon>
+    </button>
+    <mat-card-title><a mat-row="mat-row" [routerLink]="['/safetyteam', 'teams', team.id]">{{team.name}}</a>
+      <div class="safety-team-flag"><img src="/assets/img/EU.svg" *ngIf="team.inEurope" title="Team is in Europe"/> <img src="/assets/img/UK.svg" *ngIf="!team.inEurope" title="Team is in the UK"/></div>
+      <mat-icon [title]="getStatusName()">{{getStatusIcon()}}</mat-icon>
+    </mat-card-title>
+    <mat-card-subtitle><i>{{team.getPrettyRacersList()}}</i></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <h3 *ngIf="isBig">Notes</h3>
+    <div *ngIf="isBig">{{team.notes}}</div>
+    <div *ngIf="isBig &amp;&amp; teamHasCheckedIn()">
+      <h3>Last checkin</h3>
+      <time-widget [time]="team.lastCheckin.checkinTime" [fromNow]="true"></time-widget> by
+      <user-widget [user]="team.lastCheckin.byUser.user"></user-widget> at
+      <time-widget [time]="team.lastCheckin.byUser.timestamp"></time-widget>
+    </div>
+    <div *ngIf="teamHasCheckedIn()">
+      <mat-progress-bar mode="determinate" [color]="checkinProgressBarColor()" [title]="checkinProgressBarTitle()" [value]="checkinProgressBarValue()"></mat-progress-bar>
+      <div *ngIf="getOverdueTime()"><b>{{getOverdueTime().humanize()}} overdue!</b></div>
+    </div>
+    <div *ngIf="!teamHasCheckedIn()">
+      <h3>Team has not checked in!</h3>
+    </div>
+    <div *ngIf="isBig &amp;&amp; team.getLastUpdate()">
+      <h3>Last update</h3>
+      <table *ngIf="team.getLastUpdate()" class="last-update">
+        <tr>
+          <th>Time:</th>
+          <td>
+            <time-widget [time]="team.getLastUpdate().timestamp"></time-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <td> {{team.getLastUpdate().prettyStatusName()}}</td>
+        </tr>
+        <tr>
+          <th>Location:</th>
+          <td>
+            <location-widget [location]="team.getLastUpdate().location"></location-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>Notes:</th>
+          <td> {{team.getLastUpdate().notes}}</td>
+        </tr>
+        <tr *ngIf="team.getLastUpdate().byUser">
+          <th>Added</th>
+          <td>by
+            <user-widget [user]="team.getLastUpdate().byUser.user"></user-widget>
+            <time-widget [time]="team.getLastUpdate().byUser.timestamp"></time-widget>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="isBig &amp;&amp; !team.getLastUpdate()"><b>Team has no updates</b></div>
+  </mat-card-content>
+  <mat-card-actions *ngIf="isBig">
+    <button mat-button="mat-button" (click)="goToTeamTexts()">Texts</button>
+    <button mat-button="mat-button" (click)="goToTeamUpdates()">Updates</button>
+  </mat-card-actions>
+</mat-card>

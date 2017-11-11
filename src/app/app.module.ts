@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from "@agm/core";
+import { PushNotificationsModule } from "ng-push";
 
 import { ROUTES } from './app.routes';
 
@@ -16,6 +17,10 @@ import { AppComponent } from './app.component';
 import { PublicAppComponent } from './public-app';
 import { PublicMapComponent } from './public-app/public-map';
 import { LoginComponent } from './public-app/login';
+
+import { PrivateAppComponent } from './private-app';
+import { DashboardComponent } from './private-app/dashboard';
+import { DashboardCardComponent } from './private-app/dashboard/dashboard-card';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -37,6 +42,9 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     PublicAppComponent,
     PublicMapComponent,
     LoginComponent,
+    PrivateAppComponent,
+    DashboardComponent,
+    DashboardCardComponent,
     LocationWidget,
     PhoneWidget,
     TextWidget,
@@ -60,6 +68,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     AgmCoreModule.forRoot({
       apiKey: GOOGLE_MAPS_API_KEY
     }),    
+    PushNotificationsModule,
   ],
   providers: [
     UserService,

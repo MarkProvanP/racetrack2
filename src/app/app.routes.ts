@@ -4,7 +4,18 @@ import { PublicAppComponent } from './public-app';
 import { PublicMapComponent } from './public-app/public-map'
 import { LoginComponent } from './public-app/login';
 
+import { PrivateAppComponent } from './private-app';
+import { DashboardComponent } from './private-app/dashboard';
+
 export const ROUTES: Routes = [
+  {
+    path: 'safetyteam',
+    component: PrivateAppComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },      
+      { path: '', redirectTo: '/safetyteam/dashboard', pathMatch: 'full' }
+    ]
+  },
   {
     path: '',
     component: PublicAppComponent,

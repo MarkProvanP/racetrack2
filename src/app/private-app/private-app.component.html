@@ -1,0 +1,45 @@
+<mat-sidenav-container class="mat-content">
+  <mat-sidenav #start="" mode="over" class="sidebar">
+    <div class="user-profile"></div>
+    <mat-nav-list><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'user', 'me'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"><span mat-line="mat-line">{{getUsername()}}</span> <span mat-line="mat-line" class="secondary">My profile</span></div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'user', 'logout'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Log out</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'racers'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Racers</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'teams'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Teams</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'updates'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Updates</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'user', 'list'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Users</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'mass-text'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Mass Text</div>
+        </div></a><a mat-list-item="mat-list-item" [routerLink]=" ['/safetyteam', 'import'] " routerLinkActive="active" (click)="start.toggle()">
+        <div class="mat-list-item">
+          <div class="mat-list-text"> Import</div>
+        </div></a>
+      <div *ngFor="let otherUser of getOtherUsers()"> {{otherUser.name}}</div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="mat-content">
+    <mat-toolbar [ngClass]="toolbarClass()" class="toolbar logged-in">
+      <button mat-icon-button="mat-icon-button" (click)="start.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button> <a mat-button="mat-button" [routerLink]=" ['/'] ">{{ name }}</a><span class="fill">
+        <div *ngIf="getNumberUnreadTexts()" class="text-received-flash"><a [routerLink]="['/safetyteam', 'texts', 'all']" [queryParams]="{show: 'unread'}" mat-button="mat-button">{{getUnreadTextsNotification()}}</a></div></span>
+      <button mat-button="mat-button" (click)="toggleGlobalTimezone()"> {{this.getTimezone().short}} Times</button> <a mat-button="mat-button" [routerLink]=" ['/safetyteam/texts'] " routerLinkActive="active">Texts</a> <a mat-button="mat-button" [routerLink]=" ['/safetyteam/map'] " routerLinkActive="active">Safety Map</a> <a mat-button="mat-button" [routerLink]=" ['/safetyteam/dashboard'] " routerLinkActive="active">Dashboard</a>
+    </mat-toolbar>
+    <mat-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></mat-progress-bar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-sidenav-container>

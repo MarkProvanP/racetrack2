@@ -142,6 +142,7 @@ export class UserService {
     })
     .catch(err => {
       console.log('error on auth()')
+      console.log(err)
     })
   }
 
