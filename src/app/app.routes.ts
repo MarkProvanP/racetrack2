@@ -7,10 +7,13 @@ import { LoginComponent } from './public-app/login';
 import { PrivateAppComponent } from './private-app';
 import { DashboardComponent } from './private-app/dashboard';
 
+import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
+
 export const ROUTES: Routes = [
   {
     path: 'safetyteam',
     component: PrivateAppComponent,
+    canActivate: [AuthenticatedGuard, PasswordResetGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },      
       { path: '', redirectTo: '/safetyteam/dashboard', pathMatch: 'full' }
@@ -19,6 +22,7 @@ export const ROUTES: Routes = [
   {
     path: '',
     component: PublicAppComponent,
+    canActivate: [UnauthenticatedGuard],
     children: [
       {
         path: 'login',
