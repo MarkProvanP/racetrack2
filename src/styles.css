@@ -1,2 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+.loading-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-box {
+  padding: 20px;
+}
+
+.loading-icon {
+  height: 100px;
+}
+
+.loading-text {
+  text-align: center;
+  font-family: Roboto, sans-serif;
+}
+
