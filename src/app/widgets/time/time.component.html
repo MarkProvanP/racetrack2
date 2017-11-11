@@ -1,0 +1,8 @@
+<div *ngIf="isDateValid()" [ngClass]="getClass()" [title]="getTooltip()" class="time-widget">
+  <div *ngIf="!fromNow" class="time">{{getPrettyTimestamp()}}</div>
+  <div *ngIf="!fromNow" class="timezone">
+    <button (click)="toggleTimezone()">{{getTimezone().short}}</button>
+  </div>
+  <div *ngIf="fromNow" class="from-now">{{getPrettyTimeSinceNow()}}</div>
+</div>
+<div *ngIf="!isDateValid()" class="invalid-time">ERROR! INVALID TIME</div>

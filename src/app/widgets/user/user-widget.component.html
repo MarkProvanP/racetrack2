@@ -1,0 +1,4 @@
+<div *ngIf="userId &amp;&amp; loaded" [title]="getTooltip()" class="user-widget"> {{user.name}}</div>
+<div *ngIf="userId &amp;&amp; !loaded &amp;&amp; !error" class="user-widget">Loading {{userId}}...</div>
+<div *ngIf="!userId &amp;&amp; !error" class="user-widget">No User</div>
+<div *ngIf="error" title="Error loading {{userId}} - {{error.status}}" class="user-widget error">{{userId}}</div>

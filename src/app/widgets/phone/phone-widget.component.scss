@@ -1,0 +1,29 @@
+.phone-widget {
+  display: inline-block;
+  border-radius: 2px;
+  background-color: rgba(0.3, 0.3, 0.3, 0.1);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.phone-widget.edit {
+  display: inline-flex;
+
+  .country-code {
+    width: 40px;
+  }
+
+  .national-number {
+    flex: 1;
+    margin-left: 3px;
+  }
+}
+
+.country-code {
+  font-style: italic;
+  margin-right: 5px;
+}
+
+.national-number {
+
+}

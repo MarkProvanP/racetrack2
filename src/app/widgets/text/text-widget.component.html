@@ -1,0 +1,23 @@
+<div *ngIf="text" class="text-widget">
+  <table>
+    <tr>
+      <th>From</th>
+      <td>
+        <p *ngIf="textRacer">{{textRacer.name}}</p>
+        <phone-widget [number]="text.from"> </phone-widget>
+      </td>
+    </tr>
+    <tr>
+      <th>At</th>
+      <td>
+        <time-widget [time]="text.timestamp"></time-widget>
+      </td>
+    </tr>
+    <tr>
+      <th>Body</th>
+      <td>{{text.body}}</td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="!text &amp;&amp; !error" class="text-widget">Loading...</div>
+<div *ngIf="error" class="text-widget error">Error! {{error.status}}</div>
