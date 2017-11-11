@@ -25,7 +25,9 @@ import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './pipes';
 
 import { UserService, TextService, DataService } from './services';
 
-const GOOGLE_MAPS_API_KEY = "";
+import { environment } from '../environments/environment'
+
+const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
 
 @NgModule({
   declarations: [

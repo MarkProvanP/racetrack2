@@ -60,3 +60,6 @@ tags
 
  # End of https://www.gitignore.io/api/vim
 
+# Auto-generated environment variables file
+# CAREFUL - we don't want to commit any secrets!
+base.ts

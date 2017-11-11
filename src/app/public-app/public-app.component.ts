@@ -3,6 +3,10 @@ import { Title } from "@angular/platform-browser";
 //import { UserService } from '../services/user.service';
 //import { DataService } from '../services/data.service';
 
+import { environment } from '../../environments/environment'
+
+const APP_NAME = environment.appName;
+
 @Component({
   selector: 'public-app',
   encapsulation: ViewEncapsulation.None,
@@ -12,6 +16,7 @@ import { Title } from "@angular/platform-browser";
   templateUrl: './public-app.component.html'
 })
 export class PublicAppComponent {
+  name = APP_NAME;
   recentTextsReceived = [];
 
   constructor(
