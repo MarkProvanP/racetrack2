@@ -35,19 +35,18 @@ let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
-let expressSession = require('express-session');
+import * as expressSession from 'express-session';
 const MongoStore = require('connect-mongo')(expressSession);
-let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy;
-let twilio = require('twilio');
-
+import * as passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import * as twilio from 'twilio';
 
 if (!RACE2_ADMIN_PASSWORD) {
   console.error("RACE2_ADMIN_PASSWORD environment variable must be set before use!");
   process.exit(1);
 }
 
-let twilioClient = twilio(TWILIO_SID, TWILIO_AUTH_TOKEN);
+let twilioClient: twilio.RestClient = twilio(TWILIO_SID, TWILIO_AUTH_TOKEN);
 
 import { UserPrivileges, UserId } from "../common/user";
 import { Racer } from '../common/racer';
@@ -124,8 +123,8 @@ setup(MONGODB_URI)
 
     const commonSessionInfo = {
       secret: SESSION_SECRET,
-      key: SESSION_KEY,
-      sore: mongoSessionStore
+      // key: SESSION_KEY,
+      store: mongoSessionStore
     }
     
     app.use(expressSession({

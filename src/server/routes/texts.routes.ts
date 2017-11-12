@@ -12,8 +12,8 @@ import {
 } from "../../common/text";
 import { UserWithoutPassword } from "../../common/user";
 import * as winston from "winston";
-
 import * as https from "https";
+import * as twilio from 'twilio';
 
 import { NotFoundError } from "../errors";
 import { DataIntermediary } from "../data-intermediate";
@@ -21,7 +21,7 @@ import { restrictedViewOnly, restrictedBasic, restrictedModifyAll, restrictedSup
 
 import { TWILIO_SID, TWILIO_SENDING_NO, TWILIO_AUTH_TOKEN } from '../constants';
 
-export default function textsRouterWithDb(dataIntermediate: DataIntermediary, twilioClient) {
+export default function textsRouterWithDb(dataIntermediate: DataIntermediary, twilioClient: twilio.RestClient) {
   let textsRouter = express.Router();
 
   textsRouter.use((req, res, next) => {
