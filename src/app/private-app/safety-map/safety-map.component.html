@@ -1,0 +1,56 @@
+<div class="safety-map-container">
+  <agm-map [latitude]="currentMapSettings.lat" [longitude]="currentMapSettings.lng" [zoom]="currentMapSettings.zoom" (centerChange)="onMapCenterChange($event)" (zoomChange)="onMapZoomChange($event)">
+    <agm-marker [latitude]="hostel.lat" [longitude]="hostel.lng" [iconUrl]="hostel.iconUrl"></agm-marker>
+    <agm-marker *ngFor="let team of teams | teamHasUpdate " [latitude]="(team.getLastUpdate().location.latitude)" [longitude]="(team.getLastUpdate().location.longitude)" [iconUrl]="getIconUrlForTeam(team)" [title]="team.name">
+      <agm-info-window>
+        <table>
+          <tr>
+            <th>Team name:</th>
+            <td> {{team.name}}</td>
+          </tr>
+          <tr>
+            <th>Racers:</th>
+            <td> {{team.getPrettyRacersList()}}</td>
+          </tr>
+          <tr>
+            <th>Current place:</th>
+            <td> {{team.getLastUpdate().location.place}}</td>
+          </tr>
+        </table>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+  <div class="team-sidebar"></div>
+  <mat-card class="safety-map-guide">
+    <div class="mat-card-top-padded">
+      <h2 class="pane-title">Safety Team Map</h2>
+    </div>
+    <div class="list-title">
+      <h3>Teams</h3>
+    </div>
+    <div class="list">
+      <div *ngFor="let team of teams | orderBy: &quot;+id&quot; " [ngClass]="{&quot;expanded&quot;: isTeamExpanded(team)}" class="list-item">
+        <div class="list-item-title">
+          <div class="text"><b class="team-number">{{team.id}}</b>{{team.name}}</div>
+          <div (click)="moveMapToTeam(team)" [ngStyle]="{color: team.color}" class="button">
+            <mat-icon class="small-button-icon">place</mat-icon>
+          </div>
+          <div (click)="toggleTeamExpand(team)" class="button">
+            <mat-icon *ngIf="!isTeamExpanded(team)" class="small-button-icon">expand_more</mat-icon>
+            <mat-icon *ngIf="isTeamExpanded(team)" class="small-button-icon">expand_less</mat-icon>
+          </div>
+        </div>
+        <div class="list-item-detail flex-container">
+          <div class="expand">
+            <div class="detail-row"><span class="label">Racers</span><span class="value">{{team.getPrettyRacersList()}}</span></div>
+            <div class="detail-row"><span class="label">Last location</span><span *ngIf="team.getLastUpdate()" class="value">
+                <location-widget [location]="team.getLastUpdate().location"></location-widget></span><span *ngIf="!team.getLastUpdate()" class="value">!!!</span></div>
+            <div class="detail-row"><span class="label">Last update</span><span *ngIf="team.getLastUpdate()" class="value">
+                <time-widget [fromNow]="true" [time]="team.getLastUpdate().timestamp"></time-widget></span><span *ngIf="!team.getLastUpdate()" class="value">!!!</span></div>
+            <div class="detail-row"><span class="label">Status</span><span *ngIf="team.getLastUpdate()" class="value">{{team.getLastUpdate().prettyStatusName()}}</span><span *ngIf="!team.getLastUpdate()" class="value">!!!</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

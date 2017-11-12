@@ -21,6 +21,7 @@ import { LoginComponent } from './public-app/login';
 import { PrivateAppComponent } from './private-app';
 import { DashboardComponent } from './private-app/dashboard';
 import { DashboardCardComponent } from './private-app/dashboard/dashboard-card';
+import { SafetyMapComponent } from './private-app/safety-map';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -45,6 +46,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     PrivateAppComponent,
     DashboardComponent,
     DashboardCardComponent,
+    SafetyMapComponent,
     LocationWidget,
     PhoneWidget,
     TextWidget,

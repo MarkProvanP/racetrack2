@@ -6,6 +6,7 @@ import { LoginComponent } from './public-app/login';
 
 import { PrivateAppComponent } from './private-app';
 import { DashboardComponent } from './private-app/dashboard';
+import { SafetyMapComponent } from './private-app/safety-map';
 
 import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
 
@@ -15,7 +16,8 @@ export const ROUTES: Routes = [
     component: PrivateAppComponent,
     canActivate: [AuthenticatedGuard, PasswordResetGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },      
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'map', component: SafetyMapComponent },
       { path: '', redirectTo: '/safetyteam/dashboard', pathMatch: 'full' }
     ]
   },
