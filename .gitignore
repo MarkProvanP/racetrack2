@@ -63,5 +63,6 @@ tags
 # Auto-generated environment variables file
 # CAREFUL - we don't want to commit any secrets!
 base.ts
+.env
 
 bin
