@@ -1,5 +1,19 @@
-const HTTPS_FORCE = Boolean(process.env.HTTPS_FORCE);
-const ON_HEROKU = process.env.NODE && ~process.env.NODE.indexOf("heroku");
+import {
+  APP_NAME,
+  APP_URL,
+  HOSTNAME,
+  PORT,
+  MONGODB_URI,
+  TWILIO_SID,
+  TWILIO_AUTH_TOKEN,
+  TWILIO_SENDING_NO,
+  TWILIO_SMS_WEBHOOK,
+  RACE2_ADMIN_PASSWORD,
+  GMAIL_USER,
+  ON_HEROKU,
+  HTTPS_FORCE,
+  ACME_CHALLENGES
+} from './constants';
 
 import * as express from "express";
 let app = express();
@@ -29,7 +43,6 @@ let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let twilio = require('twilio');
 
-import { APP_NAME, APP_URL, HOSTNAME, PORT, MONGODB_URI, TWILIO_SID, TWILIO_AUTH_TOKEN, TWILIO_SENDING_NO, TWILIO_SMS_WEBHOOK, RACE2_ADMIN_PASSWORD } from './constants';
 
 if (!RACE2_ADMIN_PASSWORD) {
   console.error("RACE2_ADMIN_PASSWORD environment variable must be set before use!");
@@ -62,7 +75,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Let's Encrypt!
-const ACME_CHALLENGES = process.env.ACME_CHALLENGES;
 if (ACME_CHALLENGES) {
   let challenges = JSON.parse(ACME_CHALLENGES);
   challenges.forEach(({request, response}) => {
@@ -108,7 +120,6 @@ import { Emailer } from './emailer';
 let emailer = new Emailer();
 
 import { newlineReplace } from './utils';
-const GMAIL_USER = process.env.GMAIL_USER;
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled rejection!', reason, promise);

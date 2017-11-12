@@ -15,3 +15,7 @@ export const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 export const TWILIO_SENDING_NO = process.env.TWILIO_SENDING_NO;
 export const TWILIO_SMS_WEBHOOK = process.env.TWILIO_SMS_WEBHOOK;
 export const RACE2_ADMIN_PASSWORD = process.env.RACE2_ADMIN_PASSWORD;
+
+export const HTTPS_FORCE = Boolean(process.env.HTTPS_FORCE);
+export const ON_HEROKU = process.env.NODE && ~process.env.NODE.indexOf("heroku");
+export const ACME_CHALLENGES = process.env.ACME_CHALLENGES;
