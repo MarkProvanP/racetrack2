@@ -4,14 +4,16 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "serve": "ng serve --proxy-config proxy.conf.json",
+    "start": "npm run backend",
+    "postinstall": "npm run ng-environment && npm run backend:build && npm run build --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ng-environment": "node ./node_modules/ng-node-environment/index.js",
     "backend": "node --optimize_for_size --max_old_space_size=920 --gc-interval=100 bin/server/server",
-    "backend:build": "tsc --project backend-tsconfig.json",
+    "backend:build": "npm run backend:clean && tsc --project backend-tsconfig.json",
     "backend:clean": "npm run rimraf -- bin",
     "rimraf": "rimraf"
   },
