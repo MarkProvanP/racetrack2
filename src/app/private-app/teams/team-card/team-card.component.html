@@ -1,0 +1,86 @@
+<div *ngIf="team" class="team-card">
+    <mat-card>
+      <mat-card-title>
+        <h3 *ngIf="!inEditMode">{{team.name}}</h3>
+        <mat-input-container *ngIf="inEditMode" class="full-width">
+          <input matInput="matInput" placeholder="Team name" [(ngModel)]="team.name"/>
+        </mat-input-container>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-slide-toggle [(ngModel)]="team.inEurope" (change)="updateTeam()">In Europe?</mat-slide-toggle>
+        <h4>Color</h4>
+        <input type="color" [(ngModel)]="team.color" [disabled]="!inEditMode"/>
+        <button mat-raised-button="mat-raised-button" (click)="randomColor()" *ngIf="inEditMode">Random</button>
+        <h4>Team number</h4>
+        <p>{{team.id}}</p>
+        <h4>Affiliation</h4>
+        <mat-input-container class="full-width">
+          <input matInput="matInput" [disabled]="!inEditMode" [(ngModel)]="team.affiliation"/>
+        </mat-input-container>
+        <h4>Checkin Status</h4>
+        <div *ngIf="teamHasCheckedIn()">
+          <h3>Last checkin</h3>
+          <time-widget [time]="team.lastCheckin.checkinTime" [fromNow]="true"></time-widget> by
+          <user-widget [user]="team.lastCheckin.byUser.user"></user-widget> at
+          <time-widget [time]="team.lastCheckin.byUser.timestamp"></time-widget>
+          <mat-progress-bar mode="determinate" [color]="checkinProgressBarColor()" [title]="checkinProgressBarTitle()" [value]="checkinProgressBarValue()"></mat-progress-bar>
+          <div *ngIf="getOverdueTime()"><b>{{getOverdueTime().humanize()}} overdue!</b></div>
+        </div>
+        <div *ngIf="!teamHasCheckedIn()">
+          <h3>Team has not checked in!</h3>
+        </div>
+        <button mat-raised-button="mat-raised-button" color="primary" (click)="addCheckin()">Add Checkin</button>
+        <button mat-raised-button="mat-raised-button" color="primary" (click)="clearCheckin()" [disabled]="!teamHasCheckedIn()">Clear Checkin</button>
+        <h4>Notes</h4>
+        <mat-input-container class="full-width">
+          <textarea matInput="matInput" [disabled]="!inEditMode" [(ngModel)]="team.notes"></textarea>
+        </mat-input-container>
+        <h4>Status updates
+          <button mat-mini-fab="mat-mini-fab" color="accent" (click)="createNewUpdate()" *ngIf="!inNewUpdateMode">
+            <mat-icon class="mat-24">add</mat-icon>
+          </button>
+        </h4>
+        <div class="status-update-list-wrapper">
+          <mat-list>
+            <mat-list-item *ngFor="let update of team.statusUpdates | orderBy: '-timestamp' ">
+              <button mat-raised-button="mat-raised-button" *ngIf="inEditMode" (click)="deleteUpdate(update)">Delete</button>
+              <time-widget mat-line="mat-line" [time]="update.timestamp"></time-widget>
+              <div mat-line="mat-line"><span><i>Status:</i> {{update.prettyStatusName()}}</span>
+                <location-widget [location]="update.location"></location-widget>
+              </div>
+              <div mat-line="mat-line"><i>Notes:</i> {{update.notes}}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <new-update [team]="team" (onstatuscreated)="onStatusCreated()" *ngIf="inNewUpdateMode"></new-update>
+        <h4>Racers</h4>
+        <div class="team-racers-list">
+          <mat-card *ngFor="let racer of team.racers | orderBy: '+name' ">
+            <mat-card-content><a [routerLink]=" ['/safetyteam', 'racers', racer.id]">{{racer.name}}</a>
+              <phone-widget [number]="racer.getPrimaryContactNumber().number"></phone-widget>
+            </mat-card-content>
+            <button *ngIf="inEditMode" mat-icon-button="mat-icon-button" (click)="removeRacer(racer)" color="warn">
+              <mat-icon class="mat-24">delete</mat-icon>
+            </button>
+          </mat-card>
+          <mat-card *ngIf="inAddingRacerMode">
+            <mat-input-container>
+              <input matInput="matInput" [(ngModel)]="addRacerFilterName" (input)="filterAddRacers()" placeholder="Racer name"/>
+            </mat-input-container>
+            <mat-card id="filter-names-list" class="filter-names-list">
+              <mat-list>
+                <mat-list-item *ngFor="let newRacer of unteamedMatchingRacers" (click)="addSpecificRacer(newRacer)"> {{newRacer.name}}</mat-list-item>
+              </mat-list>
+            </mat-card>
+          </mat-card>
+          <button mat-mini-fab="mat-mini-fab" *ngIf="inEditMode" (click)="addRacer()" color="primary" [disabled]="noUnteamedRacers()">
+            <mat-icon class="mat-24">add</mat-icon>
+          </button>
+        </div>
+        <button mat-raised-button="mat-raised-button" color="primary" (click)="editTeam()" *ngIf="!inEditMode">Edit</button>
+        <button mat-raised-button="mat-raised-button" color="primary" (click)="saveTeam()" *ngIf="inEditMode">Finish</button>
+        <button mat-raised-button="mat-raised-button" color="warn" (click)="deleteTeam()">Delete</button>
+        <button mat-raised-button="mat-raised-button" color="primary" (click)="goToTeamTexts(team)">See Texts</button>
+      </mat-card-content>
+    </mat-card>
+  </div>

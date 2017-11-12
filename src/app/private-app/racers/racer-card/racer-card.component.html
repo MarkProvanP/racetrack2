@@ -1,0 +1,59 @@
+<div *ngIf="racer" class="racer-card">
+  <mat-card>
+    <mat-card-title>
+      <h3 *ngIf="!inEditMode">{{racer.name}}</h3>
+      <mat-input-container *ngIf="inEditMode">
+        <input matInput="matInput" placeholder="Racer name" [(ngModel)]="racer.name"/>
+      </mat-input-container>
+    </mat-card-title>
+    <mat-card-content>
+      <table>
+        <tr>
+          <th>Id:</th>
+          <td>
+            <p>{{racer.id}}</p>
+          </td>
+        </tr>
+        <tr>
+          <th>Email:</th>
+          <td>
+            <mat-input-container>
+              <input matInput="matInput" type="email" [(ngModel)]="racer.email" [disabled]="!inEditMode"/>
+            </mat-input-container>
+          </td>
+        </tr>
+        <tr>
+          <th>Phone:</th>
+          <td>
+            <div class="racer-phone-numbers-list">
+              <div *ngFor="let contact of racer.phones">
+                <div *ngIf="!inEditMode" class="contact-view contact-row">
+                  <phone-widget [number]="contact.number"></phone-widget>
+                  <p><i>Notes:</i> {{contact.notes || &quot;No notes&quot;}}</p>
+                  <mat-checkbox [(ngModel)]="contact.preferred" disabled="disabled">Preferred</mat-checkbox>
+                </div>
+                <div *ngIf="inEditMode" class="contact-edit contact-row">
+                  <phone-widget [number]="contact.number" [edit]="true"></phone-widget>
+                  <mat-input-container>
+                    <input matInput="matInput" placeholder="Notes" [(ngModel)]="contact.notes"/>
+                  </mat-input-container>
+                  <mat-checkbox [(ngModel)]="contact.preferred">Preferred</mat-checkbox>
+                  <button mat-mini-fab="mat-mini-fab" color="warn" (click)="removeContactFromRacer(contact)">
+                    <mat-icon class="mat-24">remove</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button mat-mini-fab="mat-mini-fab" *ngIf="inEditMode" (click)="addNumberToRacer()">
+              <mat-icon class="mat-24">add</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="enterEditMode()" *ngIf="!inEditMode">Edit</button>
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="exitEditMode()" *ngIf="inEditMode">Finish</button>
+      <button mat-raised-button="mat-raised-button" color="warn" (click)="deleteRacer()">Delete</button>
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="goToRacerTexts(racer)">See Texts</button>
+    </mat-card-content>
+  </mat-card>
+</div>

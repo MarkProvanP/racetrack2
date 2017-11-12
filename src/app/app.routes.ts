@@ -19,6 +19,12 @@ import { UserListComponent } from './private-app/user/list';
 import { LogoutComponent } from './private-app/user/logout';
 import { MeComponent } from './private-app/user/me';
 import { SetPasswordComponent } from './private-app/user/set-password';
+import { RacersComponent } from './private-app/racers';
+import { RacerCardComponent } from './private-app/racers/racer-card';
+import { NoRacerComponent } from './private-app/racers/no-racer';
+import { TeamsComponent } from './private-app/teams';
+import { TeamCardComponent } from './private-app/teams/team-card';
+import { NoTeamComponent } from './private-app/teams/no-team';
 
 import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
 
@@ -57,6 +63,24 @@ export const ROUTES: Routes = [
           {
             path: 'non-native', component: AddNonNativeTextComponent
           }
+        ]
+      },
+      {
+        path: 'racers',
+        component: RacersComponent,
+        children: [
+          { path: '', component: NoRacerComponent },
+          { path: ':id', component: RacerCardComponent },
+          { path: ':id/edit', component: RacerCardComponent }
+        ]
+      },
+      {
+        path: 'teams',
+        component: TeamsComponent,
+        children: [
+          { path: '', component: NoTeamComponent },
+          { path: ':id', component: TeamCardComponent },
+          { path: ':id/edit', component: TeamCardComponent }
         ]
       },
       {

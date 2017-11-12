@@ -39,6 +39,12 @@ import { UserListComponent } from './private-app/user/list';
 import { LogoutComponent } from './private-app/user/logout';
 import { MeComponent } from './private-app/user/me';
 import { SetPasswordComponent } from './private-app/user/set-password';
+import { RacersComponent } from './private-app/racers';
+import { RacerCardComponent } from './private-app/racers/racer-card';
+import { NoRacerComponent } from './private-app/racers/no-racer';
+import { TeamsComponent } from './private-app/teams';
+import { TeamCardComponent } from './private-app/teams/team-card';
+import { NoTeamComponent } from './private-app/teams/no-team';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -85,6 +91,12 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     LogoutComponent,
     MeComponent,
     SetPasswordComponent,
+    RacersComponent,
+    RacerCardComponent,
+    NoRacerComponent,
+    TeamsComponent,
+    TeamCardComponent,
+    NoTeamComponent,
 
     LocationWidget,
     PhoneWidget,
