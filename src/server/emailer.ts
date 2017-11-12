@@ -4,23 +4,16 @@ import * as pug from "pug";
 import { UserWithoutPassword } from '../common/user';
 import { TwilioInboundText, TwilioOutboundText } from '../common/text';
 import { newlineReplace } from './utils';
-import { hostname } from "os";
+import { APP_NAME, APP_URL, HOSTNAME, GMAIL_USER, GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN } from './constants';
 
-const HOSTNAME = hostname();
-const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_CLIENT_ID = process.env.GMAIL_CLIENT_ID;
-const GMAIL_CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
-const GMAIL_REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN;
+
 const ERROR_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.ERROR_EMAIL_RECIPIENTS.split(","));
 const STATUS_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.STATUS_EMAIL_RECIPIENTS.split(","));
 const DATA_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.DATA_EMAIL_RECIPIENTS.split(","));
-
 console.log(`Will send error emails to ${ERROR_EMAIL_RECIPIENTS}`);
 console.log(`Will send status emails to ${STATUS_EMAIL_RECIPIENTS}`);
 console.log(`Will send data emails to ${DATA_EMAIL_RECIPIENTS}`);
 
-const APP_NAME = process.env.NG_APP_NAME;
-const APP_URL = process.env.APP_URL;
 
 const XOAUTH2_SETTINGS = {
     user: GMAIL_USER,

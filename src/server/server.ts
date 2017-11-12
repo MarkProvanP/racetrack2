@@ -29,18 +29,7 @@ let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let twilio = require('twilio');
 
-const APP_NAME = process.env.NG_APP_NAME;
-const APP_URL = process.env.APP_URL;
-const PORT = process.env.PORT;
-const MONGODB_URI = process.env.MONGODB_URI;
-const TWILIO_SID = process.env.TWILIO_SID;
-const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-const TWILIO_SENDING_NO = process.env.TWILIO_SENDING_NO;
-const TWILIO_SMS_WEBHOOK = process.env.TWILIO_SMS_WEBHOOK;
-const RACE2_ADMIN_PASSWORD = process.env.RACE2_ADMIN_PASSWORD;
-import { hostname } from "os";
-const HOSTNAME = hostname();
-
+import { APP_NAME, APP_URL, HOSTNAME, PORT, MONGODB_URI, TWILIO_SID, TWILIO_AUTH_TOKEN, TWILIO_SENDING_NO, TWILIO_SMS_WEBHOOK, RACE2_ADMIN_PASSWORD } from './constants';
 
 if (!RACE2_ADMIN_PASSWORD) {
   console.error("RACE2_ADMIN_PASSWORD environment variable must be set before use!");
