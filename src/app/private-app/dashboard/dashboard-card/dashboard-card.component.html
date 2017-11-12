@@ -8,7 +8,10 @@
       <mat-icon *ngIf="!isBig">expand_more</mat-icon>
     </button>
     <mat-card-title><a mat-row="mat-row" [routerLink]="['/safetyteam', 'teams', team.id]">{{team.name}}</a>
-      <div class="safety-team-flag"><img src="/assets/img/EU.svg" *ngIf="team.inEurope" title="Team is in Europe"/> <img src="/assets/img/UK.svg" *ngIf="!team.inEurope" title="Team is in the UK"/></div>
+      <div class="safety-team-flag">
+        <img src="/assets/img/EU.svg" *ngIf="team.inEurope" title="Team is in Europe"/>
+        <img src="/assets/img/UK.svg" *ngIf="!team.inEurope" title="Team is in the UK"/>
+      </div>
       <mat-icon [title]="getStatusName()">{{getStatusIcon()}}</mat-icon>
     </mat-card-title>
     <mat-card-subtitle><i>{{team.getPrettyRacersList()}}</i></mat-card-subtitle>
