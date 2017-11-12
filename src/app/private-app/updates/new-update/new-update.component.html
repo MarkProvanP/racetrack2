@@ -18,7 +18,7 @@
           <td>
             <div class="place-name full-width">
               <mat-input-container class="place-input">
-                <input mdInput="mdInput" [(ngModel)]="newStatusObj.location.place"/>
+                <input matInput="matInput" [(ngModel)]="newStatusObj.location.place"/>
               </mat-input-container>
               <button mat-icon-button="mat-icon-button" (click)="searchForPlace()" class="search-button">
                 <mat-icon>search</mat-icon>
@@ -36,7 +36,7 @@
           <th>Notes:</th>
           <td>
             <mat-input-container class="full-width">
-              <textarea mdInput="mdInput" [(ngModel)]="newStatusObj.notes" class="notes-input"></textarea>
+              <textarea matInput="matInput" [(ngModel)]="newStatusObj.notes" class="notes-input"></textarea>
             </mat-input-container>
           </td>
         </tr>

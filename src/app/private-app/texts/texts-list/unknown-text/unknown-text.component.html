@@ -43,7 +43,7 @@
             <div class="new-contact">
               <phone-widget [number]="newContact.number" [edit]="[edit]"></phone-widget>
               <mat-input-container>
-                <input mdInput="mdInput" placeholder="Notes" [(ngModel)]="newContact.notes" class="shrink"/>
+                <input matInput="matInput" placeholder="Notes" [(ngModel)]="newContact.notes" class="shrink"/>
               </mat-input-container>
               <mat-checkbox [(ngModel)]="newContact.preferred">Preferred</mat-checkbox>
             </div>

@@ -26,7 +26,7 @@
             <td>
               <div class="next-recipient">
                 <mat-input-container class="search-field">
-                  <input mdInput="mdInput" [(ngModel)]="searchQuery" (input)="filterRecipients()" placeholder="Search for racer name or phone number"/>
+                  <input matInput="matInput" [(ngModel)]="searchQuery" (input)="filterRecipients()" placeholder="Search for racer name or phone number"/>
                 </mat-input-container>
                 <mat-card id="filter-recipients-list" class="filter-recipients-list"><i *ngIf="!matchingRecipients.length">No racers matching query!</i>
                   <mat-list *ngIf="matchingRecipients.length">
@@ -46,7 +46,7 @@
             <th>Message:</th>
             <td>
               <mat-input-container class="text-body">
-                <textarea mdInput="mdInput" [(ngModel)]="message"></textarea>
+                <textarea matInput="matInput" [(ngModel)]="message"></textarea>
               </mat-input-container>
             </td>
           </tr>

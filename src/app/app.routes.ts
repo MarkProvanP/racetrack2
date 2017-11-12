@@ -55,16 +55,16 @@ export const ROUTES: Routes = [
           }
         ]
       },
+      {
+        path: 'updates',
+        children: [
+          { path: '', component: UpdatesComponent },
+          { path: ':id', component: UpdatesComponent }
+        ]
+      },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'map', component: SafetyMapComponent },
       { path: '', redirectTo: '/safetyteam/dashboard', pathMatch: 'full' }
-    ]
-  },
-  {
-    path: 'updates',
-    children: [
-      { path: '', component: UpdatesComponent },
-      { path: ':id', component: UpdatesComponent }
     ]
   },
   {

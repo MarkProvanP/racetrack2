@@ -2,9 +2,9 @@
 <div *ngIf="numberExists() &amp;&amp; !edit" class="phone-widget"><span class="country-code">+{{number.countryCode}}</span><span class="number">{{number.nationalNumber}}</span></div>
 <div *ngIf="number &amp;&amp; edit" class="phone-widget edit">
   <mat-input-container class="country-code">
-    <input mdInput="mdInput" [(ngModel)]="number.countryCode" width="3"/><span mat-prefix="mat-prefix">+</span>
+    <input matInput="matInput" [(ngModel)]="number.countryCode" width="3"/><span mat-prefix="mat-prefix">+</span>
   </mat-input-container>
   <mat-input-container class="national-number">
-    <input mdInput="mdInput" [(ngModel)]="number.nationalNumber"/>
+    <input matInput="matInput" [(ngModel)]="number.nationalNumber"/>
   </mat-input-container>
 </div>
