@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "./bin",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "moduleResolution": "node",
+        "target": "es5",
+        "lib": ["es2017"]
+    },
+    "files": [
+        "src/server/server.ts"
+    ],
+    "exclude": [
+        "src/app"
+    ]
+}
