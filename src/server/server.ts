@@ -32,7 +32,8 @@ import * as winston from "winston";
 winston.add(winston.transports.File, { filename: 'logfile.log' })
 
 let http = require('http').Server(app);
-let io = require('socket.io')(http);
+import * as socketio from 'socket.io';
+let io = socketio(http);
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 import * as expressSession from 'express-session';
