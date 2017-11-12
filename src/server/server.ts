@@ -34,7 +34,6 @@ winston.add(winston.transports.File, { filename: 'logfile.log' })
 
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
-let passportSocketIo = require('passport.socketio');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let expressSession = require('express-session');
@@ -55,17 +54,6 @@ import { UserPrivileges, UserId } from "../common/user";
 import { Racer } from '../common/racer';
 import { Team } from '../common/team';
 import { Text, TwilioInboundText, TwilioOutboundText } from "../common/text";
-import { 
-  AbstractMessage,
-  TextReceivedMessage,
-  TextSentMessage,
-  TextUpdatedMessage,
-  UserLoggedInMessage,
-  UserLoggedOutMessage,
-  OtherLoggedInUsersMessage,
-  CLOSE_SOCKET
-} from "../common/message";
-
 
 var path = require('path');
 
@@ -103,15 +91,6 @@ import { SavedConfig, GetDataIntermediary } from "./data-intermediate";
 import { DbFacadeInterface } from './db/db-facade';
 import { setup } from './db/mongo-db-facade';
 
-function onAuthorizeSuccess(data, accept) {
-  console.log('successful connection to socket.io');
-  accept();
-}
-
-function onAuthorizeFail(data, message, error, accept) {
-  console.log('failed connection to socket.io', message);
-  accept(new Error("not allowed!"));
-}
 
 let dataIntermediate;
 
@@ -145,6 +124,8 @@ let messageSender = new MessageSender();
 
 import { socialMediaBotMiddleware } from './social-media-bot-middleware';
 
+import { socketIoHandler } from './socket-io-handler';
+
 //let db_facade : DbFacadeInterface = new InMemoryDbFacade();
 setup(MONGODB_URI)
   .then(db_facade => {
@@ -170,53 +151,22 @@ setup(MONGODB_URI)
       db: db_facade.db,
       autoReconnect: true
     });
-    
-    app.use(expressSession({
+
+    const commonSessionInfo = {
       secret: SESSION_SECRET,
       key: SESSION_KEY,
+      sore: mongoSessionStore
+    }
+    
+    app.use(expressSession({
       resave: true,
       saveUninitialized: true,
-      store: mongoSessionStore
+      ...commonSessionInfo
     }));
     app.use(passport.initialize());
     app.use(passport.session());
 
-    io.use(passportSocketIo.authorize({
-      cookieParser: cookieParser,
-      key: SESSION_KEY,
-      secret: SESSION_SECRET,
-      store: mongoSessionStore,
-      success: onAuthorizeSuccess,
-      fail: onAuthorizeFail
-    }));
-
-    io.on('connection', function(socket) {
-      let socketUser = socket.request.user;
-      winston.log('info', `Socket.io connection from web client started, username: ${socketUser.name}`);
-      console.log('Users now', messageSender.sockets.map(client => client.request.user));
-
-      let userLoggedInMessage = new UserLoggedInMessage(socketUser);
-      messageSender.sendMessageToWebClients(userLoggedInMessage, socket);
-
-      let otherLoggedInUsers = messageSender.sockets.map(client => client.request.user);
-      let otherLoggedInUsersMessage = new OtherLoggedInUsersMessage(otherLoggedInUsers);
-      socket.emit(OtherLoggedInUsersMessage.event, otherLoggedInUsersMessage);
-
-      messageSender.addClient(socket);
-
-      socket.on(CLOSE_SOCKET, () => {
-        socket.disconnect();
-      });
-
-      socket.on('disconnect', function() {
-        winston.log('info', 'Socket.io connection from web client ended');
-        messageSender.removeClient(socket);
-        console.log('Users now', messageSender.sockets.map(client => client.request.user));
-
-        let userLoggedOutMessage = new UserLoggedOutMessage(socketUser);
-        messageSender.sendMessageToWebClients(userLoggedOutMessage, socket);
-      });
-    });
+    socketIoHandler(io, messageSender, cookieParser, commonSessionInfo, winston);
 
     let apiRouter = express.Router();
 
