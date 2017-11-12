@@ -27,11 +27,7 @@ export function apiRouter(emailer: Emailer, twilioClient, dataIntermediate: Data
     let racersRouter = racersRouterWithDb(dataIntermediate);
     apiRouter.use("/racers", racersRouter);
 
-    let twilioObj = {
-        client: twilioClient,
-        fromNumber: TWILIO_SENDING_NO
-    }
-    let textsRouter = textsRouterWithDb(dataIntermediate, twilioObj, TWILIO_SID, TWILIO_AUTH_TOKEN);
+    let textsRouter = textsRouterWithDb(dataIntermediate, twilioClient);
     apiRouter.use("/texts", textsRouter);
 
     let updatesRouter = updatesRouterWithDb(dataIntermediate);

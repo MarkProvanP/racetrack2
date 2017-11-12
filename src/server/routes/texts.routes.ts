@@ -19,7 +19,9 @@ import { NotFoundError } from "../errors";
 import { DataIntermediary } from "../data-intermediate";
 import { restrictedViewOnly, restrictedBasic, restrictedModifyAll, restrictedSuperuser } from "../auth";
 
-export default function textsRouterWithDb(dataIntermediate: DataIntermediary, twilio, twilioAccountSid, twilioAuthToken) {
+import { TWILIO_SID, TWILIO_SENDING_NO, TWILIO_AUTH_TOKEN } from '../constants';
+
+export default function textsRouterWithDb(dataIntermediate: DataIntermediary, twilioClient) {
   let textsRouter = express.Router();
 
   textsRouter.use((req, res, next) => {
@@ -78,12 +80,11 @@ export default function textsRouterWithDb(dataIntermediate: DataIntermediary, tw
 
   textsRouter.post('/', restrictedBasic, (req, res) => {
     let newText = req.body;
-    let twilioClient = twilio.client;
     let user = newText.user;
     twilioClient.messages.create({
       body: newText.message,
       to: newText.to,
-      from: twilio.fromNumber
+      from: TWILIO_SENDING_NO
     }, (err, text) => {
       if (err) {
         winston.error('Twilio send text error!', {err});
@@ -121,7 +122,7 @@ export default function textsRouterWithDb(dataIntermediate: DataIntermediary, tw
       return;
     }
     let options = {
-      auth: `${twilioAccountSid}:${twilioAuthToken}`,
+      auth: `${TWILIO_SID}:${TWILIO_AUTH_TOKEN}`,
       host: 'api.twilio.com',
       path: data.next_page_uri
     }
@@ -149,7 +150,7 @@ export default function textsRouterWithDb(dataIntermediate: DataIntermediary, tw
       textsInDb.forEach(text => {
         dbTextsObj[Text.getTextSid(text)] = text;
       })
-      twilio.client.messages.list((err, data) => {
+      twilioClient.messages.list((err, data) => {
         if (err) {
           handleServerError(req, res)(err);
         } else {
