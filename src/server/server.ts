@@ -11,8 +11,7 @@ import {
   RACE2_ADMIN_PASSWORD,
   GMAIL_USER,
   ON_HEROKU,
-  HTTPS_FORCE,
-  ACME_CHALLENGES
+  HTTPS_FORCE
 } from './constants';
 
 import * as express from "express";
@@ -62,15 +61,8 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 
-// Let's Encrypt!
-if (ACME_CHALLENGES) {
-  let challenges = JSON.parse(ACME_CHALLENGES);
-  challenges.forEach(({request, response}) => {
-    app.get(request, (req, res) => {
-      res.send(response);
-    })
-  });
-}
+import { letsEncryptHandler } from './lets-encrypt-handler';
+letsEncryptHandler(app);
 
 const SESSION_SECRET = 'kewbfklebhfrhaewbfabfjbhzsfkjbkasjbvhkjaswbhdrvfkashbfvhavfha';
 const SESSION_KEY = "express.sid";
