@@ -37,7 +37,8 @@ import {
   TeamUpdatedMessage,
   TeamUpdateUpdatedMessage
 } from "../common/message";
-import { Emailer, MessageSender } from "./server";
+import { Emailer } from './emailer';
+import { MessageSender } from "./server";
 import { User } from "./auth";
 import { NotFoundError } from "./errors";
 import { UserActionInfo } from "../common/user";
