@@ -15,6 +15,10 @@ import { TeamTextsComponent } from './private-app/texts/team-texts';
 import { TextSendComponent } from './private-app/texts/text-send';
 import { TextsListComponent } from './private-app/texts/texts-list';
 import { UpdatesComponent } from './private-app/updates';
+import { UserListComponent } from './private-app/user/list';
+import { LogoutComponent } from './private-app/user/logout';
+import { MeComponent } from './private-app/user/me';
+import { SetPasswordComponent } from './private-app/user/set-password';
 
 import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
 
@@ -60,6 +64,13 @@ export const ROUTES: Routes = [
         children: [
           { path: '', component: UpdatesComponent },
           { path: ':id', component: UpdatesComponent }
+        ]
+      },
+      {
+        path: 'user', children: [
+          { path: 'logout', component: LogoutComponent },
+          { path: 'me', component: MeComponent },
+          { path: 'list', component: UserListComponent },
         ]
       },
       { path: 'dashboard', component: DashboardComponent },

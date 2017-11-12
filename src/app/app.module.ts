@@ -35,6 +35,10 @@ import { SentTextComponent } from './private-app/texts/texts-list/sent-text';
 import { UnknownTextComponent } from './private-app/texts/texts-list/unknown-text';
 import { UpdatesComponent } from './private-app/updates';
 import { NewUpdateComponent } from './private-app/updates/new-update';
+import { UserListComponent } from './private-app/user/list';
+import { LogoutComponent } from './private-app/user/logout';
+import { MeComponent } from './private-app/user/me';
+import { SetPasswordComponent } from './private-app/user/set-password';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -77,6 +81,10 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     UnknownTextComponent,
     UpdatesComponent,
     NewUpdateComponent,
+    UserListComponent,
+    LogoutComponent,
+    MeComponent,
+    SetPasswordComponent,
 
     LocationWidget,
     PhoneWidget,

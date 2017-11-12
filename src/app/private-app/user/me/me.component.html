@@ -1,0 +1,50 @@
+<div class="me-wrapper">
+  <mat-card>
+    <mat-card-title> My user details</mat-card-title>
+    <mat-card-content>
+      <table *ngIf="getUser()">
+        <tr>
+          <th>Username:</th>
+          <td>{{getUser().username}}</td>
+        </tr>
+        <tr>
+          <th>Name:</th>
+          <td>{{getUser().name}}</td>
+        </tr>
+        <tr>
+          <th>Email:</th>
+          <td>{{getUser().email}}</td>
+        </tr>
+        <tr>
+          <th>Phone:</th>
+          <td>
+            <phone-widget [number]="getUser().phone"></phone-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>Role:</th>
+          <td>{{getUser().role}}</td>
+        </tr>
+        <tr>
+          <th>Privilege Level:</th>
+          <td>{{prettyLevelName(getUser().level)}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Change Password</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="changePassword" (ngSubmit)="onChangePasswordSubmit()" class="form">
+        <mat-input-container>
+          <input matInput="matInput" type="password" formControlName="newPassword" required="required" placeholder="New password"/>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput="matInput" type="password" formControlName="newPasswordAgain" required="required" placeholder="New password (again)"/>
+        </mat-input-container>
+        <p *ngIf="changePasswordError" class="change-password-error">{{getChangePasswordErrorMessage()}}</p>
+        <button mat-raised-button="mat-raised-button" color="primary" type="submit">Change Password</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

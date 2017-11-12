@@ -1,0 +1,24 @@
+.user-list-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column
+}
+.user-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-card {
+  margin: 10px;
+}
+
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.register-card {
+  margin: 20px;
+}
+.bulk-register-card {
+  margin: 20px;
+}
