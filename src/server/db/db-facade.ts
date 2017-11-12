@@ -14,8 +14,6 @@ import { SavedConfig } from "../data-intermediate";
 
 import { User } from '../auth';
 
-var Promise = require("es6-promise").Promise;
-
 export interface DbFacadeInterface {
   getSavedConfig(): Promise<SavedConfig>;
   createSavedConfig(savedConfig: SavedConfig): Promise<void>;
