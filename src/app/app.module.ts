@@ -9,7 +9,6 @@ import { AgmCoreModule } from "@agm/core";
 import { PushNotificationsModule } from "ng-push";
 
 import { ROUTES } from './app.routes';
-
 import { RacetrackMaterialModule } from "./racetrack.material.module";
 
 import { AppComponent } from './app.component';
@@ -22,6 +21,20 @@ import { PrivateAppComponent } from './private-app';
 import { DashboardComponent } from './private-app/dashboard';
 import { DashboardCardComponent } from './private-app/dashboard/dashboard-card';
 import { SafetyMapComponent } from './private-app/safety-map';
+import { TextsComponent } from './private-app/texts';
+import { AllTextsComponent } from './private-app/texts/all-texts';
+import { AddNonNativeTextComponent } from './private-app/texts/non-native';
+import { RacerTextsComponent } from './private-app/texts/racer-texts';
+import { TeamTextsComponent } from './private-app/texts/team-texts';
+import { TextSendComponent } from './private-app/texts/text-send';
+import { TextsListComponent } from './private-app/texts/texts-list';
+import { AppTextComponent } from './private-app/texts/texts-list/app-text';
+import { NonNativeTextComponent } from './private-app/texts/texts-list/non-native-text';
+import { NormalTextComponent } from './private-app/texts/texts-list/normal-text';
+import { SentTextComponent } from './private-app/texts/texts-list/sent-text';
+import { UnknownTextComponent } from './private-app/texts/texts-list/unknown-text';
+import { UpdatesComponent } from './private-app/updates';
+import { NewUpdateComponent } from './private-app/updates/new-update';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -40,13 +53,31 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
 @NgModule({
   declarations: [
     AppComponent,
+
     PublicAppComponent,
     PublicMapComponent,
     LoginComponent,
+
     PrivateAppComponent,
     DashboardComponent,
     DashboardCardComponent,
     SafetyMapComponent,
+    TextsComponent,
+    AllTextsComponent,
+    AddNonNativeTextComponent,
+    RacerTextsComponent,
+    TeamTextsComponent,
+    TextSendComponent,
+    TextsListComponent,
+    AppTextComponent,
+    NonNativeTextComponent,
+    NormalTextComponent,
+    NormalTextComponent,
+    SentTextComponent,
+    UnknownTextComponent,
+    UpdatesComponent,
+    NewUpdateComponent,
+
     LocationWidget,
     PhoneWidget,
     TextWidget,

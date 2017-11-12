@@ -1,0 +1,59 @@
+<mat-card class="new-update-card">
+  <div class="new-status-update">
+    <div class="info-table">
+      <div class="status-row">
+        <h3>New status update - {{team.name}}</h3>
+      </div>
+      <table>
+        <tr>
+          <th>Status</th>
+          <td>
+            <mat-select [(ngModel)]="newStatusObj.status">
+              <mat-option *ngFor="let item of statusEnum | keys" [value]="item.key">{{getPrettyStatusName(item)}}</mat-option>
+            </mat-select>
+          </td>
+        </tr>
+        <tr>
+          <th>Place:</th>
+          <td>
+            <div class="place-name full-width">
+              <mat-input-container class="place-input">
+                <input mdInput="mdInput" [(ngModel)]="newStatusObj.location.place"/>
+              </mat-input-container>
+              <button mat-icon-button="mat-icon-button" (click)="searchForPlace()" class="search-button">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+            <div>
+              <p class="place-suggestion">{{placeSuggestion}}</p>
+            </div>
+            <div>
+              <location-widget [location]="newStatusObj.location"></location-widget>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Notes:</th>
+          <td>
+            <mat-input-container class="full-width">
+              <textarea mdInput="mdInput" [(ngModel)]="newStatusObj.notes" class="notes-input"></textarea>
+            </mat-input-container>
+          </td>
+        </tr>
+        <tr>
+          <th>Linked texts:</th>
+          <td> {{newStatusObj.linkedTexts}}</td>
+        </tr>
+      </table>
+      <mat-checkbox [(ngModel)]="newStatusObj.isPublic">Make public</mat-checkbox>
+      <mat-slide-toggle [(ngModel)]="team.inEurope">In Europe?</mat-slide-toggle>
+      <button mat-raised-button="mat-raised-button" color="accent" (click)="saveNewUpdate()">Save update</button>
+      <button mat-raised-button="mat-raised-button" (click)="cancelNewUpdate()">Cancel</button>
+    </div>
+    <div class="location-map">
+      <agm-map [latitude]="mapSettings.lat" [longitude]="mapSettings.lng" [zoom]="mapSettings.zoom">
+        <agm-marker [latitude]="(newStatusObj.location.latitude)" [longitude]="(newStatusObj.location.longitude)" [markerDraggable]="true" (dragEnd)="onMarkerDragEnd($event)"></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</mat-card>

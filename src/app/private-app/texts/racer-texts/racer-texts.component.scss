@@ -1,0 +1,27 @@
+texts-list {
+  flex: 1;
+  //overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.master-detail {
+  flex: 1;
+  display: flex;
+  .master {
+    width: 300px;
+    overflow-y: scroll;
+    background-color: white;
+  }
+
+  .detail {
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
+
+.selected {
+  background-color: #EEE !important;
+}
+

@@ -1,0 +1,46 @@
+.card-container{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+
+    md-card {
+      margin: 5px;
+    }
+}
+
+md-tab-group {
+  flex-shrink: 0;
+}
+
+/deep/ .md-tab-body.md-active {
+  display:flex !important;
+  flex-direction: column;
+}
+
+/deep/ .md-list-item:hover {
+  background-color: lightgrey;
+}
+
+/deep/ .md-list-item.selected {
+  background-color: #EEEEEE;
+}
+
+/deep/ all-texts {
+  display: flex;
+  flex: 1;
+}
+
+/deep/ team-texts {
+  display: flex;
+  flex: 1;
+}
+
+/deep/ racer-texts {
+  display: flex;
+  flex: 1;
+}
+
+/deep/ add-non-native-text {
+  display: flex;
+  flex: 1;
+}

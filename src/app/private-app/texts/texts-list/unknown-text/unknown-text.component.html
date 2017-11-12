@@ -1,0 +1,72 @@
+<mat-card [ngClass]="{&quot;linking&quot;: inLinkingMode}" class="text-card unknown-text">
+  <mat-card-header>
+    <mat-card-title><i>Text from unknown number!
+        <phone-widget [number]="text.from"></phone-widget></i>
+      <time-widget [time]="text.timestamp"></time-widget>
+      <button mat-icon-button="mat-icon-button" (click)="linkUnknownTextToRacer()" [title]="&quot;Link number to racer&quot;" [disabled]="inLinkingMode">
+        <mat-icon>link</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card *ngIf="inLinkingMode" class="linking-card">
+    <mat-card-content class="link-body">
+      <div class="master-detail">
+        <div class="racers-list master">
+          <mat-list>
+            <mat-list-item *ngFor="let racer of racersList | orderBy: &quot;+name&quot; " (click)="pickRacer(racer)">{{racer.name}}<i *ngIf="selectedRacer == racer">- Selected</i></mat-list-item>
+          </mat-list>
+        </div>
+        <div class="detail">
+          <div *ngIf="selectedRacer">
+            <h3>Existing numbers for {{selectedRacer.name}}</h3>
+            <table class="existing-racer-contacts">
+              <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Notes</th>
+                  <th>Preferred</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of selectedRacer.phones">
+                  <td>
+                    <phone-widget [number]="contact.number"></phone-widget>
+                  </td>
+                  <td>{{contact.notes}}</td>
+                  <td>
+                    <mat-checkbox [(ngModel)]="contact.preferred" [disabled]="true"></mat-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>New contact number details</h3>
+            <div class="new-contact">
+              <phone-widget [number]="newContact.number" [edit]="[edit]"></phone-widget>
+              <mat-input-container>
+                <input mdInput="mdInput" placeholder="Notes" [(ngModel)]="newContact.notes" class="shrink"/>
+              </mat-input-container>
+              <mat-checkbox [(ngModel)]="newContact.preferred">Preferred</mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="saveNumberToRacer()" [disabled]="!selectedRacer">Save</button>
+      <button mat-raised-button="mat-raised-button" color="warn" (click)="finishLinking()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card-content> {{text.body}}</mat-card-content>
+  <div *ngIf="text.readBy" class="text-read">Read by
+    <user-widget [user]="text.readBy.user"></user-widget> at
+    <time-widget [time]="text.readBy.timestamp"></time-widget>
+  </div>
+  <mat-card-actions>
+    <button mat-icon-button="mat-icon-button" (click)="replyToText()" [title]="&quot;Reply to text&quot;">
+      <mat-icon>reply</mat-icon>
+    </button>
+    <button mat-icon-button="mat-icon-button" (click)="markTextAsRead()" [disabled]="text.readBy" [title]="&quot;Mark text as read&quot;">
+      <mat-icon>done</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

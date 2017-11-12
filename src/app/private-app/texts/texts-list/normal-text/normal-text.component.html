@@ -1,0 +1,30 @@
+<mat-card [ngClass]="{unread: !text.readBy}" class="text-card text-card-normal">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="inline-text-title"><span>
+          <phone-widget [number]="text.from"></phone-widget></span> - <a *ngIf="textRacer" [routerLink]="['/safetyteam', 'racers', textRacer.id]">{{textRacer.name}}</a> - <a *ngIf="textTeam" [routerLink]="['/safetyteam', 'teams', textTeam.id]">({{textTeam.id}}) {{textTeam.name}}</a></div>
+      <time-widget [time]="text.timestamp"></time-widget>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="text-body"> {{text.body}}</div>
+  </mat-card-content>
+  <div *ngIf="text.readBy" class="text-read">Read by
+    <user-widget [user]="text.readBy.user"></user-widget> at
+    <time-widget [time]="text.readBy.timestamp"></time-widget>
+  </div>
+  <mat-card-actions>
+    <button mat-icon-button="mat-icon-button" (click)="replyToText()" [title]="&quot;Reply to text&quot;">
+      <mat-icon>reply</mat-icon>
+    </button>
+    <button mat-icon-button="mat-icon-button" (click)="markTextAsRead()" [disabled]="text.readBy" [title]="&quot;Mark text as read&quot;">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-icon-button="mat-icon-button" [disabled]="!canCheckinFromText()" (click)="addCheckIn()" [title]="&quot;Add checkin for team&quot;">
+      <mat-icon>update</mat-icon>
+    </button>
+    <button mat-icon-button="mat-icon-button" [disabled]="!canUpdateFromText()" (click)="createUpdate()" [title]="&quot;Create team update from this text&quot;">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,51 @@
+.text-send {
+  max-width: 800px;
+  min-width: 600px;
+}
+
+.text-send > md-card {
+  background-color: #fff3b0;
+}
+
+.text-recipients-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.next-recipient {
+  display: block;
+}
+
+.recipient-card {
+  padding: 6px;
+  margin: 6px;
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+.text-body {
+  width: 100%;
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.search-field {
+  width: 100%;
+}
+
+.filter-recipients-list {
+  position: relative;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  max-height: 100px;
+  overflow-y: scroll;
+}

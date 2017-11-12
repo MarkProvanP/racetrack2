@@ -1,0 +1,38 @@
+.master-detail {
+  display: flex;
+  flex: 1;
+  .master {
+    width: 300px;
+    overflow-y: scroll;
+    background-color: white;
+  }
+
+  .detail {
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
+
+texts-list {
+  flex: 1;
+  //overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.unread {
+  font-weight: bold;
+}
+
+.selected {
+  background-color: #EEE !important;
+}
+
+.team-number {
+  margin: 0;
+  background-color: #EEE;
+  text-align: center;
+  border-radius: 100%;
+  border: 2px solid black;
+}

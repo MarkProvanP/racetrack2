@@ -1,0 +1,111 @@
+<div class="updates-by-team master-detail">
+  <div class="teams-list master">
+    <mat-nav-list><a mat-list-item="mat-list-item" *ngFor="let team of teams | orderBy: '+id'" (click)="routeToTeam(team)" [routerLink]="getTeamLink(team)" routerLinkActive="selected">
+        <div mat-list-avatar="mat-list-avatar">
+          <h1 [ngStyle]="{&quot;background-color&quot;: team.color}" class="team-number">{{team.id}}</h1>
+        </div>
+        <h3 mat-line="mat-line">{{team.name}}</h3>
+        <p mat-line="mat-line">{{team.getPrettyRacersList()}}</p></a></mat-nav-list>
+  </div>
+  <div *ngIf="!selectedTeam" class="no-team-container">
+    <div class="inner">
+      <h3>No team selected</h3>
+    </div>
+  </div>
+  <div class="update-list-wrapper">
+    <div *ngIf="selectedTeam" class="updates-list">
+      <mat-card class="notes-card">
+        <mat-card-title>{{selectedTeam.name}}</mat-card-title>
+        <mat-card-subtitle>{{selectedTeam.getPrettyRacersList()}}</mat-card-subtitle>
+        <h4>Notes</h4>
+        <mat-input-container class="full-width">
+          <textarea mdInput="mdInput" [(ngModel)]="selectedTeam.notes" class="notes-input"></textarea>
+        </mat-input-container>
+        <mat-card-actions>
+          <button mat-button="mat-button" (click)="saveNotes()">Save</button>
+        </mat-card-actions>
+      </mat-card>
+      <div class="add-button-wrapper">
+        <button *ngIf="!inCreateUpdateMode" mat-fab="mat-fab" color="primary" (click)="createNewUpdate()">
+          <mat-icon class="mat-24">add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="inCreateUpdateMode" class="new-update-wrapper">
+        <new-update [team]="selectedTeam" (onStatusCreated)="onUpdateCreated()"></new-update>
+      </div>
+      <div *ngFor="let update of selectedTeam.statusUpdates | orderBy: '-timestamp'" class="update-card-wrapper">
+        <mat-card class="update-card">
+          <div class="info-table">
+            <table>
+              <tr>
+                <th>Time</th>
+                <td>
+                  <time-widget [time]="update.timestamp"></time-widget>
+                </td>
+              </tr>
+              <tr>
+                <th>Place</th>
+                <td *ngIf="!isEditing(update)">
+                  <location-widget [location]="update.location"></location-widget>
+                </td>
+                <td *ngIf="isEditing(update)">
+                  <mat-input-container>
+                    <input mdInput="mdInput" [(ngModel)]="update.location.place" class="place-input"/>
+                  </mat-input-container>
+                  <location-widget [location]="update.location" showCoords="true" hidePlace="true"></location-widget>
+                </td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td *ngIf="!isEditing(update)"> {{update.prettyStatusName()}}</td>
+                <td *ngIf="isEditing(update)">
+                  <mat-select [(ngModel)]="update.status">
+                    <mat-option *ngFor="let item of statusEnum | keys" [value]="item.key">{{getPrettyStatusName(item)}}</mat-option>
+                  </mat-select>
+                </td>
+              </tr>
+              <tr>
+                <th>Linked texts</th>
+                <td *ngIf="update.linkedTexts.length">
+                  <button mat-button="mat-button" *ngIf="!showingLinkedTextsForUpdate(update)" (click)="loadLinkedTextsForUpdate(update)">Show</button>
+                  <div *ngIf="showingLinkedTextsForUpdate(update)">
+                    <text-widget *ngFor="let text of update.linkedTexts" [text]="text"></text-widget>
+                  </div>
+                </td>
+                <td *ngIf="!update.linkedTexts.length">No linked texts!</td>
+              </tr>
+              <tr>
+                <th>Notes</th>
+                <td>
+                  <mat-input-container class="full-width">
+                    <textarea mdInput="mdInput" [(ngModel)]="update.notes" [disabled]="!isEditing(update)" class="notes-input"></textarea>
+                  </mat-input-container>
+                </td>
+              </tr>
+              <tr *ngIf="update.byUser">
+                <th>By User</th>
+                <td>
+                  <user-widget [user]="update.byUser.user"></user-widget> at
+                  <time-widget [time]="update.byUser.timestamp"></time-widget>
+                </td>
+              </tr>
+            </table>
+            <mat-checkbox [disabled]="!isEditing(update)" [(ngModel)]="update.isPublic">Is Public</mat-checkbox>
+            <button mat-icon-button="mat-icon-button" *ngIf="!isEditing(update)" (click)="editUpdate(update)">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-raised-button="mat-raised-button" *ngIf="isEditing(update)" (click)="resetUpdateTimestamp(update)">Reset Update Time</button>
+            <button mat-icon-button="mat-icon-button" *ngIf="isEditing(update)" (click)="saveUpdate(update)">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          <div class="location-map">
+            <agm-map [latitude]="update.location.latitude" [longitude]="update.location.longitude" [disableDefaultUI]="default.ui" [zoom]="default.zoom">
+              <agm-marker [latitude]="update.location.latitude" [longitude]="update.location.longitude" [markerDraggable]="isEditing(update)" (dragEnd)="onMarkerDragEnd($event)"></agm-marker>
+            </agm-map>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

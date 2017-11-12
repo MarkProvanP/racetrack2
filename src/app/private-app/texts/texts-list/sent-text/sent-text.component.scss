@@ -1,0 +1,19 @@
+.text-card {
+  width: 300px;
+  margin-left: 200px;
+}
+
+.text-outbound {
+  background-color: gold;
+}
+
+.text-outbound.unknown-text {
+  background-color: pink;
+}
+
+.text-sent {
+  font-style: italic;
+  text-align: right;
+  color: grey;
+  font-size: smaller;
+}

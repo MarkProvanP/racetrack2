@@ -1,0 +1,22 @@
+<mat-card [ngClass]="{&quot;unknown-text&quot;: !textRacer}" class="text-card text-outbound">
+    <mat-card-header>
+      <mat-card-title><i *ngIf="!textRacer">Text to unknown number!
+          <phone-widget [number]="text.to"></phone-widget></i>
+        <div *ngIf="textRacer &amp;&amp; display.oneline" class="inline-text-title">
+          <phone-widget [number]="text.to"></phone-widget> - <span *ngIf="textRacer">{{textRacer.name}}</span> - <span *ngIf="textTeam">({{textTeam.id}}) {{textTeam.name}}</span> <span *ngIf="!textTeam" class="error">ERROR: No Team for Racer!</span>
+        </div>
+        <time-widget [time]="text.timestamp"></time-widget>
+        <div *ngIf="!display.oneline" class="text-title">
+          <div *ngIf="display.number">
+            <phone-widget [number]="text.from"></phone-widget>
+          </div>
+          <div *ngIf="display.time">{{text.getPrettyTimestamp()}}</div>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content> {{text.body}}</mat-card-content>
+    <div *ngIf="text.sentBy" class="text-sent">Sent by
+      <user-widget [user]="text.sentBy.user"></user-widget>
+    </div>
+    <mat-card-actions></mat-card-actions>
+  </mat-card>

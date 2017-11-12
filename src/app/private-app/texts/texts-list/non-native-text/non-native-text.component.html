@@ -1,0 +1,34 @@
+<mat-card [ngClass]="{unread: !text.readBy}" class="text-card text-card-normal">
+    <mat-card-header>
+      <mat-card-title>
+        <div *ngIf="display.oneline" class="inline-text-title"><span>
+            <phone-widget [number]="text.from"></phone-widget></span> - <span *ngIf="textRacer">{{textRacer.name}}</span><span *ngIf="!textRacer" class="error">No Racer!</span> - <span *ngIf="textTeam">({{textTeam.id}}) {{textTeam.name}}</span><span *ngIf="!textTeam" class="error">No Team!</span></div>
+        <div *ngIf="text.addedBy" class="added-by">Added by
+          <user-widget [user]="text.addedBy.user"></user-widget>at
+          <time-widget [time]="text.addedBy.timestamp"></time-widget>
+        </div>Text timestamp
+        <time-widget [time]="text.timestamp"></time-widget>
+        <div *ngIf="!display.oneline" class="text-title">
+          <div *ngIf="display.number">
+            <phone-widget [number]="text.from"></phone-widget>
+          </div>
+          <div *ngIf="display.time">{{text.getPrettyTimestamp()}}</div>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="text-body"> {{text.body}}</div>
+    </mat-card-content>
+    <div *ngIf="text.readBy" class="text-read">Read by
+      <user-widget [user]="text.readBy.user"></user-widget> at
+      <time-widget [time]="text.readBy.timestamp"></time-widget>
+    </div>
+    <mat-card-actions>
+      <button mat-icon-button="mat-icon-button" [disabled]="!canCheckinFromText()" (click)="addCheckIn()" [title]="&quot;Add checkin for team&quot;">
+        <mat-icon>update</mat-icon>
+      </button>
+      <button mat-icon-button="mat-icon-button" [disabled]="!canUpdateFromText()" (click)="createUpdate()" [title]="&quot;Create team update from this text&quot;">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>

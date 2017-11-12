@@ -1,0 +1,58 @@
+<div class="text-send">
+    <mat-card>
+      <mat-card-content>
+        <div *ngIf="isSending"><i>Sending</i></div>
+        <table style="width: 100%">
+          <tr>
+            <th>To:
+              <button mat-icon-button="mat-icon-button" (click)="toggleEditingRecipients()">
+                <mat-icon *ngIf="editingRecipients">done</mat-icon>
+                <mat-icon *ngIf="!editingRecipients">edit</mat-icon>
+              </button>
+            </th>
+            <td>
+              <div class="text-recipients-list">
+                <mat-card *ngFor="let recipient of recipients" class="recipient-card"><span class="recipient-name">{{recipient.name}}</span><span class="recipient-number-note">{{recipient.numNote}}</span>
+                  <phone-widget [number]="recipient.number"></phone-widget>
+                  <button mat-icon-button="mat-icon-button" *ngIf="editingRecipients" (click)="removeRecipient(recipient)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-card>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="editingRecipients">
+            <th>Add</th>
+            <td>
+              <div class="next-recipient">
+                <mat-input-container class="search-field">
+                  <input mdInput="mdInput" [(ngModel)]="searchQuery" (input)="filterRecipients()" placeholder="Search for racer name or phone number"/>
+                </mat-input-container>
+                <mat-card id="filter-recipients-list" class="filter-recipients-list"><i *ngIf="!matchingRecipients.length">No racers matching query!</i>
+                  <mat-list *ngIf="matchingRecipients.length">
+                    <mat-list-item *ngFor="let recipient of matchingRecipients" (click)="addRecipient(recipient)">
+                      <ng-container *ngIf="recipient">
+                        {{recipient.name}}
+                        {{recipient.numNote}}
+                        <phone-widget [number]="recipient.number"></phone-widget>
+                      </ng-container>
+                    </mat-list-item>
+                  </mat-list>
+                </mat-card>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Message:</th>
+            <td>
+              <mat-input-container class="text-body">
+                <textarea mdInput="mdInput" [(ngModel)]="message"></textarea>
+              </mat-input-container>
+            </td>
+          </tr>
+        </table>
+        <button mat-raised-button="mat-raised-button" color="accent" (click)="sendNewText()">Send</button>
+        <button mat-raised-button="mat-raised-button" (click)="cancelNewText()">Cancel</button>
+      </mat-card-content>
+    </mat-card>
+  </div>

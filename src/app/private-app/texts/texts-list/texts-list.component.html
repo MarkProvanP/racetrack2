@@ -1,0 +1,31 @@
+<div class="text-list-wrapper">
+  <div class="filter-options"><span class="filter-options-name">Showing</span>
+    <mat-button-toggle-group name="show" [(ngModel)]="readFilterOption" (change)="onFilterUpdate()">
+      <mat-button-toggle value="read">Read</mat-button-toggle>
+      <mat-button-toggle value="unread">Unread</mat-button-toggle>
+      <mat-button-toggle value="all" checked="checked">All</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div *ngIf="!displayedTexts.length" class="no-texts-to-show"><i>No texts to show!</i></div>
+  <div *ngIf="displayedTexts.length" class="texts-list">
+    <div *ngIf="textsBeforeFirst">
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="showMoreBefore()">Show more</button> of {{textsBeforeFirst}} previous texts
+    </div>
+    <div *ngFor="let text of displayedTexts" class="text-card-wrapper">
+      <div *ngIf="inTextSendMode &amp;&amp; text == selectedText" class="text-send-wrapper">
+        <text-send [toRacer]="selectedText.racer" [toNumber]="selectedText.from" (onTextSendClose)="onTextSendClose()"></text-send>
+      </div>
+      <normal-text [text]="text" [display]="display" (onMakeRead)="updateText($event, &quot;Marked text as read&quot;)" (onCreateReply)="replyToText($event)" (onAddCheckin)="checkInTeamFromText($event)" (onCreateUpdate)="createUpdateFromText($event)" *ngIf="isInboundText(text) &amp;&amp; text.racer" class="text-card normal-text"></normal-text>
+      <app-text [text]="text" [display]="display" (onMakeRead)="updateText($event, &quot;Marked text as read&quot;)" (onCreateReply)="replyToText($event)" (onAddCheckin)="checkInTeamFromText($event)" (onCreateUpdate)="createUpdateFromText($event)" *ngIf="isAppText(text) &amp;&amp; text.racer" class="text-card normal-text"></app-text>
+      <sent-text [text]="text" [display]="display" *ngIf="isOutboundText(text)" class="text-card sent-text"></sent-text>
+      <unknown-text [text]="text" [display]="display" (onMakeRead)="updateText($event, &quot;Marked text as read&quot;)" (onCreateReply)="replyToText($event)" *ngIf="isInboundText(text) &amp;&amp; !text.racer" class="text-card unknown-text"></unknown-text>
+      <non-native-text [text]="text" [display]="display" (onAddCheckin)="checkInTeamFromText($event)" (onCreateUpdate)="createUpdateFromText($event)" *ngIf="isNonNativeText(text)" class="text-card normal-text"></non-native-text>
+      <div *ngIf="inCreateUpdateMode &amp;&amp; text == selectedText &amp;&amp; selectedTextTeam" class="new-update-wrapper">
+        <new-update [team]="selectedTextTeam" [text]="text" (onStatusCreated)="onStatusCreated()"></new-update>
+      </div>
+    </div>
+    <div *ngIf="textsAfterLast">
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="showMoreAfter()">Show more</button> of {{textsAfterLast}} remaining texts
+    </div>
+  </div>
+</div>
