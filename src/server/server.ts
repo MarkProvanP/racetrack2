@@ -100,23 +100,6 @@ let emailer = new Emailer();
 
 import { newlineReplace } from './utils';
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled rejection!', reason, promise);
-  emailer.sendUnhandledRejectionEmail(reason, promise)
-  .catch(err => {
-    console.error('Oh noes! An error occured while trying to handle an error! This is absolutely awful!')
-    console.error('New error', err);
-  });
-});
-
-process.on('uncaughtException', (exception) => {
-  console.error('Uncaught exception!', exception);
-  emailer.sendUncaughtExceptionEmail(exception)
-  .catch(err => {
-    console.error('Oh noes! An error occured while trying to handle an error! This is absolutely awful!')
-    console.error('New error', err);
-  });
-});
 
 import { MessageSender } from './message-sender';
 
@@ -126,6 +109,8 @@ import { socialMediaBotMiddleware } from './social-media-bot-middleware';
 
 import { socketIoHandler } from './socket-io-handler';
 import { twilioHandler } from './twilio-handler';
+import { errorHandling } from './error-handling';
+errorHandling(emailer);
 
 //let db_facade : DbFacadeInterface = new InMemoryDbFacade();
 setup(MONGODB_URI)
