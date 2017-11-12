@@ -31,7 +31,7 @@ import { UserWidget } from './widgets/user';
 
 import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './pipes';
 import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
-import { UserService, TextService, DataService } from './services';
+import { UserService, TextService, DataService, NominatimService } from './services';
 
 import { environment } from '../environments/environment'
 
@@ -79,6 +79,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     UserService,
     TextService,
     DataService,
+    NominatimService
   ],
   bootstrap: [AppComponent]
 })
