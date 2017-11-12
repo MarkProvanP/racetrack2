@@ -45,6 +45,9 @@ import { NoRacerComponent } from './private-app/racers/no-racer';
 import { TeamsComponent } from './private-app/teams';
 import { TeamCardComponent } from './private-app/teams/team-card';
 import { NoTeamComponent } from './private-app/teams/no-team';
+import { ImportComponent } from './private-app/import';
+import { MassTextComponent } from './private-app/mass-text';
+import { DebugComponent } from './private-app/misc/debug';
 
 import { LocationWidget } from './widgets/location';
 import { PhoneWidget } from './widgets/phone';
@@ -97,6 +100,9 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
     TeamsComponent,
     TeamCardComponent,
     NoTeamComponent,
+    ImportComponent,
+    MassTextComponent,
+    DebugComponent,
 
     LocationWidget,
     PhoneWidget,

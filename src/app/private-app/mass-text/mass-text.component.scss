@@ -1,0 +1,23 @@
+.mass-text-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.mass-text-component {
+  margin: 50px;
+
+}
+
+.responded {
+  background-color: #8BC34A;
+}
+
+.not-responded {
+  background-color: #f44336;
+}
+
+.response-table {
+  width: 100%;
+}

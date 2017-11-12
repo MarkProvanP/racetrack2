@@ -1,0 +1,46 @@
+.team-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.team {
+  margin: 5px;
+}
+
+.team-number {
+  margin: 0;
+  background-color: #EEE;
+  text-align: center;
+  border-radius: 100%;
+  border: 2px solid black;
+}
+
+.team-name {
+  font-weight: bold;
+}
+
+.racer-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.racer {
+  margin: 5px;
+  display: flex;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+
+.racer-detail {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-number {
+  display: inline-block;
+}

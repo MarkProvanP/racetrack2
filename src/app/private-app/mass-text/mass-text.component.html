@@ -1,0 +1,113 @@
+<div *ngIf="ready" class="mass-text-wrapper">
+  <mat-card *ngIf="!currentEvent || isSending" class="mass-text-component">
+    <mat-card-title> Mass Text</mat-card-title>
+    <mat-card-content>
+      <div class="response-safeword">
+        <label>Keyword</label>
+        <mat-input-container>
+          <input matInput="matInput" [(ngModel)]="newMassTextKeyword"/>
+        </mat-input-container>
+      </div>
+      <div class="response-timeout">
+        <label>Reply time (mins)</label>
+        <label>0</label>
+        <mat-slider min="1" max="60" tickinterval="auto" thumblabel="thumblabel" [(ngModel)]="newMassTextTimeout"></mat-slider>
+        <label>60</label>
+      </div>
+      <div class="message-body">
+        <label>Message body</label>
+        <mat-input-container>
+          <textarea matInput="matInput" [(ngModel)]="newMassTextBody"></textarea>
+        </mat-input-container>
+      </div>
+      <div class="message-preview"><b>Message preview:</b> <i>{{getMessagePreview()}}</i></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-checkbox [(ngModel)]="confirmSend">Confirm sending</mat-checkbox>
+      <button mat-raised-button="mat-raised-button" color="primary" [disabled]="!confirmSend" (click)="massSend()">Mass send</button>
+    </mat-card-actions>
+    <mat-progress-bar mode="determinate" *ngIf="isSending" value="getProgressBarValue()"></mat-progress-bar>
+  </mat-card>
+  <mat-card *ngIf="currentEvent &amp;&amp; !isSending" class="mass-text-component">
+    <mat-card-title> Sent Text</mat-card-title>
+    <mat-card-content>
+      <div class="message-preview"><i>{{getSentMessage()}}</i></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button="mat-raised-button" color="warn" (click)="endMassTextEvent()">Mark as Complete</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card *ngIf="currentEvent" class="mass-text-component">
+    <mat-card-title> Responses</mat-card-title>
+    <mat-card-content>
+      <div class="response-table"></div>
+      <table class="response-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Racer name</th>
+            <th>Primary number</th>
+            <th>Response time</th>
+            <th>Response text</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let racer of racers | orderBy: &quot;+name&quot;" [ngClass]="getRacerRowClass(racer)">
+            <td>{{getTeamForRacer(racer).name}}</td>
+            <td>{{racer.name}}</td>
+            <td>
+              <phone-widget [number]="racer.getPrimaryContactNumber().number"></phone-widget>
+            </td>
+            <td>
+              <time-widget [time]="getTextResponseTimeForRacer(racer)"></time-widget>
+            </td>
+            <td>{{getTextResponseTextForRacer(racer)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <h3 class="mass-text-component">Previous Mass Texts</h3>
+  <mat-card *ngFor="let oldMassText of oldMassTexts" class="old-mass-texts mass-text-component">
+    <mat-card-content>
+      <table>
+        <tr>
+          <th>Started by</th>
+          <td>
+            <user-widget [user]="oldMassText.byUser.user"></user-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>At time</th>
+          <td>
+            <time-widget [time]="oldMassText.byUser.timestamp"></time-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>Keyword</th>
+          <td>{{oldMassText.keyword}}</td>
+        </tr>
+        <tr>
+          <th>Timeout (mins)</th>
+          <td>{{oldMassText.timeout}}</td>
+        </tr>
+        <tr>
+          <th>Message body</th>
+          <td>{{oldMassText.body}}</td>
+        </tr>
+        <tr>
+          <th>Marked as completed by</th>
+          <td>
+            <user-widget [user]="oldMassText.endedBy.user"></user-widget>
+          </td>
+        </tr>
+        <tr>
+          <th>At time</th>
+          <td>
+            <time-widget [time]="oldMassText.endedBy.timestamp"></time-widget>
+          </td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

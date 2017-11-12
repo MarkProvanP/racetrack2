@@ -25,6 +25,9 @@ import { NoRacerComponent } from './private-app/racers/no-racer';
 import { TeamsComponent } from './private-app/teams';
 import { TeamCardComponent } from './private-app/teams/team-card';
 import { NoTeamComponent } from './private-app/teams/no-team';
+import { ImportComponent } from './private-app/import';
+import { MassTextComponent } from './private-app/mass-text';
+import { DebugComponent } from './private-app/misc/debug';
 
 import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
 
@@ -99,8 +102,16 @@ export const ROUTES: Routes = [
       },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'map', component: SafetyMapComponent },
+      { path: 'mass-text', component: MassTextComponent },
+      { path: 'debug', component: DebugComponent },
+      { path: 'import', component: ImportComponent },
       { path: '', redirectTo: '/safetyteam/dashboard', pathMatch: 'full' }
     ]
+  },
+  {
+    path: 'set-password',
+    canActivate: [AuthenticatedGuard],
+    component: SetPasswordComponent
   },
   {
     path: '',
