@@ -1,4 +1,0 @@
-{"level":"info","message":"Got connection to MongoDB server!","timestamp":"2017-11-12T14:29:33.854Z"}
-{"level":"info","message":"MongoDB now ready for use","timestamp":"2017-11-12T14:29:33.870Z"}
-{"level":"info","message":"App now listening on port: undefined","timestamp":"2017-11-12T14:29:33.927Z"}
-{"level":"info","message":"MongoDB connection closed safely","timestamp":"2017-11-12T14:29:45.049Z"}

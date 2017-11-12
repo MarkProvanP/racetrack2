@@ -66,3 +66,4 @@ base.ts
 .env
 
 bin
+logfile.log
