@@ -9,8 +9,8 @@ import { Text, InboundText, NonNativeText } from '../../../../../common/text';
 
 import { UserActionInfo } from "../../../../../common/user";
 
-import { UserService } from '../../../../services/user.service';
-import { DataService } from "../../../../services/data.service";
+import { UserService } from '../../../../shared/services/user.service';
+import { DataService } from "../../../../shared/services/data.service";
 
 @Component({
   selector: 'non-native-text',

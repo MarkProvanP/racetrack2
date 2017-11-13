@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 
 import { MatSnackBar } from "@angular/material";
 
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'set-password',

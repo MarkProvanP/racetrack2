@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 
 import { Racer }                from '../../../common/racer';
-import { DataService }         from '../../services/data.service';
+import { DataService }         from '../../shared/services/data.service';
 
 @Component({
   selector: 'my-racers',

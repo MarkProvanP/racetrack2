@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
-import { DataService } from '../../../../services/data.service';
-import { UserService } from '../../../../services/user.service';
+import { DataService } from '../../../../shared/services/data.service';
+import { UserService } from '../../../../shared/services/user.service';
 
 import { Text, InboundText, OutboundText, ContactNumber } from '../../../../../common/text';
 import { UserActionInfo } from "../../../../../common/user";

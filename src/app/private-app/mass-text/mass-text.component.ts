@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
-import { DataService } from "../../services/data.service";
-import { UserService } from "../../services/user.service";
-import { TextService, TextFilterOptions } from "../../services/text.service";
+import { DataService } from "../../shared/services/data.service";
+import { UserService } from "../../shared/services/user.service";
+import { TextService, TextFilterOptions } from "../../shared/services/text.service";
 import { InboundText, OutboundText } from "../../../common/text";
 
 import { Team } from "../../../common/team";

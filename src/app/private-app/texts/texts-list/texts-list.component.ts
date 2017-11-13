@@ -5,9 +5,9 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 import { Racer } from "../../../../common/racer";
 import { Team, CheckinInfo } from "../../../../common/team";
 import { Text, TextId, InboundText, OutboundText, AppText, NonNativeText } from '../../../../common/text';
-import { DataService } from '../../../services/data.service';
-import { TextService } from '../../../services/text.service';
-import { UserService } from '../../../services/user.service';
+import { DataService } from '../../../shared/services/data.service';
+import { TextService } from '../../../shared/services/text.service';
+import { UserService } from '../../../shared/services/user.service';
 
 import * as moment from "moment";
 

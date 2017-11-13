@@ -3,10 +3,10 @@ import { Headers, Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 
-import { Text, TextId, PhoneNumber, InboundText, OutboundText, NonNativeText } from '../../common/text';
-import { Racer } from '../../common/racer';
-import { Team } from '../../common/team';
-import { TextReceivedMessage, TextUpdatedMessage, TextSentMessage } from "../../common/message";
+import { Text, TextId, PhoneNumber, InboundText, OutboundText, NonNativeText } from '../../../common/text';
+import { Racer } from '../../../common/racer';
+import { Team } from '../../../common/team';
+import { TextReceivedMessage, TextUpdatedMessage, TextSentMessage } from "../../../common/message";
 import { UserService } from './user.service';
 
 import * as moment from "moment";

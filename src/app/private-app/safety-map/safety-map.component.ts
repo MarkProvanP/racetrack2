@@ -1,6 +1,6 @@
 import { Component, OnInit, Pipe, PipeTransform } from "@angular/core";
 
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../shared/services/data.service';
 
 import { Team } from '../../../common/team';
 

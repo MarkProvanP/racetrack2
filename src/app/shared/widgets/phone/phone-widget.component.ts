@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 
-import { PhoneNumber } from "../../../common/text";
+import { PhoneNumber } from "../../../../common/text";
 
 @Component({
   selector: 'phone-widget',

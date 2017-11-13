@@ -49,15 +49,15 @@ import { ImportComponent } from './private-app/import';
 import { MassTextComponent } from './private-app/mass-text';
 import { DebugComponent } from './private-app/misc/debug';
 
-import { LocationWidget } from './widgets/location';
-import { PhoneWidget } from './widgets/phone';
-import { TextWidget } from './widgets/text';
-import { TimeWidget } from './widgets/time';
-import { UserWidget } from './widgets/user';
+import { LocationWidget } from './shared/widgets/location';
+import { PhoneWidget } from './shared/widgets/phone';
+import { TextWidget } from './shared/widgets/text';
+import { TimeWidget } from './shared/widgets/time';
+import { UserWidget } from './shared/widgets/user';
 
-import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './pipes';
-import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './guards';
-import { UserService, TextService, DataService, NominatimService } from './services';
+import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './shared/pipes';
+import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './shared/guards';
+import { UserService, TextService, DataService, NominatimService } from './shared/services';
 
 import { environment } from '../environments/environment'
 

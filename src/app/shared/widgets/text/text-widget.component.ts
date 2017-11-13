@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 
-import { Text, TextId } from "../../../common/text";
-import { Racer, RacerId } from "../../../common/racer";
+import { Text, TextId } from "../../../../common/text";
+import { Racer, RacerId } from "../../../../common/racer";
 import { DataService } from "../../services/data.service";
 import { TextService } from "../../services/text.service";
 

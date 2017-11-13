@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
-import { Team } from "../../common/team";
+import { Team } from "../../../common/team";
 
 @Pipe({
   name: 'teamHasUpdate',

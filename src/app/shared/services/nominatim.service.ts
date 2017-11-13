@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
 
-import { Location } from "../../common/update";
+import { Location } from "../../../common/update";
 
 @Injectable()
 export class NominatimService {

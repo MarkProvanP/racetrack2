@@ -4,19 +4,19 @@ import { MatSnackBar } from "@angular/material";
 import * as _ from "lodash";
 import 'rxjs/add/operator/toPromise';
 
-import { Team, TeamId } from '../../common/team';
-import { Racer, RacerId } from '../../common/racer';
-import { TeamUpdate } from '../../common/update';
-import { PhoneNumber } from '../../common/text';
-import { ThingEvent, ThingEventId } from '../../common/event';
-import { UserWithoutPassword, UserId } from '../../common/user';
+import { Team, TeamId } from '../../../common/team';
+import { Racer, RacerId } from '../../../common/racer';
+import { TeamUpdate } from '../../../common/update';
+import { PhoneNumber } from '../../../common/text';
+import { ThingEvent, ThingEventId } from '../../../common/event';
+import { UserWithoutPassword, UserId } from '../../../common/user';
 import { UserService } from './user.service';
 
 import {
   RacerUpdatedMessage,
   TeamUpdatedMessage,
   TeamUpdateUpdatedMessage
-} from "../../common/message";
+} from "../../../common/message";
 
 @Injectable()
 export class DataService {

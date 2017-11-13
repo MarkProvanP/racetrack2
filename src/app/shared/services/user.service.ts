@@ -15,8 +15,8 @@ import {
   UserLoggedOutMessage,
   OtherLoggedInUsersMessage,
   CLOSE_SOCKET
-} from "../../common/message";
-import { UserWithoutPassword, UserActionInfo, UserId } from "../../common/user";
+} from "../../../common/message";
+import { UserWithoutPassword, UserActionInfo, UserId } from "../../../common/user";
 
 function myIndexOf(array, element, check) {
   for (let i = 0; i < array.length; i++) {

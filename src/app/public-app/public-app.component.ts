@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Title } from "@angular/platform-browser";
-//import { UserService } from '../services/user.service';
-//import { DataService } from '../services/data.service';
+//import { UserService } from '../shared/services/user.service';
+//import { DataService } from '../shared/services/data.service';
 
 import { environment } from '../../environments/environment'
 

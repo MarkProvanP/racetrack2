@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 
-import { Location, LOCATION_SOURCES } from "../../../common/update";
+import { Location, LOCATION_SOURCES } from "../../../../common/update";
 
 @Component({
   selector: 'location-widget',

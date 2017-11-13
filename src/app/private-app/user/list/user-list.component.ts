@@ -8,8 +8,8 @@ import * as Papa from "papaparse";
 
 import { UserId, UserWithoutPassword, prettyUserPrivilegesLevel, isAboveMinimumPrivilege, UserPrivileges } from '../../../../common/user';
 import { PhoneNumber } from "../../../../common/text";
-import { UserService } from "../../../services/user.service";
-import { DataService } from "../../../services/data.service";
+import { UserService } from "../../../shared/services/user.service";
+import { DataService } from "../../../shared/services/data.service";
 
 const DEFAULT_SNACKBAR_CONFIG = new MatSnackBarConfig();
 DEFAULT_SNACKBAR_CONFIG.duration = 5000;

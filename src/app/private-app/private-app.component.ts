@@ -3,9 +3,9 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Title } from "@angular/platform-browser";
-import { TextService, TextFilterOptions } from '../services/text.service';
-import { UserService } from '../services/user.service';
-import { DataService } from '../services/data.service';
+import { TextService, TextFilterOptions } from '../shared/services/text.service';
+import { UserService } from '../shared/services/user.service';
+import { DataService } from '../shared/services/data.service';
 
 import { PushNotificationsService } from "ng-push";
 

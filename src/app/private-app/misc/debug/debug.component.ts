@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Headers, Http } from "@angular/http"
 
-import { DataService } from "../../../services/data.service";
-import { UserService } from "../../../services/user.service";
-import { TextService } from "../../../services/text.service";
+import { DataService } from "../../../shared/services/data.service";
+import { UserService } from "../../../shared/services/user.service";
+import { TextService } from "../../../shared/services/text.service";
 
 import { PhoneNumber } from "../../../../common/text";
 

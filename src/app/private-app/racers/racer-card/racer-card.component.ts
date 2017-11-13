@@ -5,7 +5,7 @@ import { Team } from '../../../../common/team';
 import { Location, TeamUpdate, TeamStatus } from '../../../../common/update';
 import { PhoneNumber, ContactNumber } from "../../../../common/text";
 import { Racer, RacerId } from '../../../../common/racer';
-import { DataService } from '../../../services/data.service';
+import { DataService } from '../../../shared/services/data.service';
 
 @Component({
   selector: 'racer-card',
