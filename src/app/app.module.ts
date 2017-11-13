@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from "@agm/core";
@@ -56,8 +55,8 @@ import { TimeWidget } from './shared/widgets/time';
 import { UserWidget } from './shared/widgets/user';
 
 import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './shared/pipes';
-import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './core/guards';
-import { UserService, TextService, DataService, NominatimService } from './core/services';
+
+import { CoreModule } from './core';
 
 import { environment } from '../environments/environment'
 
@@ -120,7 +119,6 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
       preloadingStrategy: PreloadAllModules
     }),
     BrowserAnimationsModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     RacetrackMaterialModule,
@@ -128,15 +126,7 @@ const GOOGLE_MAPS_API_KEY = environment.googleMapsApiKey;
       apiKey: GOOGLE_MAPS_API_KEY
     }),    
     PushNotificationsModule,
-  ],
-  providers: [
-    AuthenticatedGuard,
-    UnauthenticatedGuard,
-    PasswordResetGuard,
-    UserService,
-    TextService,
-    DataService,
-    NominatimService
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })
