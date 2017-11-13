@@ -6,8 +6,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Team, TeamId } from '../../../../common/team';
 import { Location, TeamUpdate, TeamStatus } from '../../../../common/update';
 import { Racer } from '../../../../common/racer';
-import { UserService } from "../../../shared/services/user.service";
-import { DataService } from '../../../shared/services/data.service';
+import { UserService } from "../../../core/services/user.service";
+import { DataService } from '../../../core/services/data.service';
 
 const ALLOWED_CHECKIN_DURATION = moment.duration(3, 'hours');
 

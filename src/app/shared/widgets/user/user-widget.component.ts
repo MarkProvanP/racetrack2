@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 
 import { UserId, UserWithoutPassword } from "../../../../common/user";
 
-import { DataService } from "../../services/data.service";
+import { DataService } from "../../../core/services/data.service";
 
 @Component({
   selector: 'user-widget',

@@ -56,8 +56,8 @@ import { TimeWidget } from './shared/widgets/time';
 import { UserWidget } from './shared/widgets/user';
 
 import { KeysPipe, OrderByPipe, TeamHasUpdatePipe } from './shared/pipes';
-import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './shared/guards';
-import { UserService, TextService, DataService, NominatimService } from './shared/services';
+import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './core/guards';
+import { UserService, TextService, DataService, NominatimService } from './core/services';
 
 import { environment } from '../environments/environment'
 

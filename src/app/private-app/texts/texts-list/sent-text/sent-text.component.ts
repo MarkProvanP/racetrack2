@@ -4,7 +4,7 @@ import { Team, TeamId } from "../../../../../common/team";
 import { Racer, RacerId } from "../../../../../common/racer";
 import { Text, OutboundText } from '../../../../../common/text';
 
-import { DataService } from "../../../../shared/services/data.service";
+import { DataService } from "../../../../core/services/data.service";
 
 @Component({
   selector: 'sent-text',

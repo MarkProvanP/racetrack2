@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 
 import { Text, TextId } from "../../../../common/text";
 import { Racer, RacerId } from "../../../../common/racer";
-import { DataService } from "../../services/data.service";
-import { TextService } from "../../services/text.service";
+import { DataService } from "../../../core/services/data.service";
+import { TextService } from "../../../core/services/text.service";
 
 @Component({
   selector: 'text-widget',

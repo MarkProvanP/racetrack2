@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 
-import { UserService, Timezone, TIMEZONES } from "../../services/user.service";
+import { UserService, Timezone, TIMEZONES } from "../../../core/services/user.service";
 
 import * as moment from "moment-timezone";
 

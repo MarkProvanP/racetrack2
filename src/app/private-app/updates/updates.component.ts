@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { UserService } from "../../shared/services/user.service";
-import { DataService } from "../../shared/services/data.service";
-import { TextService, TextFilterOptions } from "../../shared/services/text.service";
+import { UserService } from "../../core/services/user.service";
+import { DataService } from "../../core/services/data.service";
+import { TextService, TextFilterOptions } from "../../core/services/text.service";
 
 import { Team } from "../../../common/team";
 import { Text, TextId } from "../../../common/text";

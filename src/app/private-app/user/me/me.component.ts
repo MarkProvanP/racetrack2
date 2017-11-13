@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { MatSnackBar } from "@angular/material";
 
-import { UserService } from "../../../shared/services/user.service";
-import { DataService } from "../../../shared/services/data.service";
+import { UserService } from "../../../core/services/user.service";
+import { DataService } from "../../../core/services/data.service";
 
 import { prettyUserPrivilegesLevel } from "../../../../common/user";
 

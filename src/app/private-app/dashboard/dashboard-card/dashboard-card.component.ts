@@ -2,8 +2,8 @@ import * as moment from "moment";
 
 import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
-import { DataService } from "../../../shared/services/data.service";
-import { UserService } from "../../../shared/services/user.service";
+import { DataService } from "../../../core/services/data.service";
+import { UserService } from "../../../core/services/user.service";
 
 import { Team } from '../../../../common/team';
 import { TeamStatus, prettyStatusName } from '../../../../common/update';

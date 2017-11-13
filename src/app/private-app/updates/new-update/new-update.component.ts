@@ -9,9 +9,9 @@ import {
 } from "../../../../common/update";
 import { Text, AppText } from "../../../../common/text";
 
-import { DataService } from '../../../shared/services/data.service';
-import { UserService } from '../../../shared/services/user.service';
-import { NominatimService } from "../../../shared/services/nominatim.service";
+import { DataService } from '../../../core/services/data.service';
+import { UserService } from '../../../core/services/user.service';
+import { NominatimService } from "../../../core/services/nominatim.service";
 
 @Component({
   selector: 'new-update',

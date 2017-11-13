@@ -4,7 +4,7 @@ import { Team, TeamId } from "../../../common/team";
 import { Racer, RacerId } from "../../../common/racer";
 import { PhoneNumber } from "../../../common/text";
 
-import { DataService } from "../../shared/services/data.service";
+import { DataService } from "../../core/services/data.service";
 
 import * as Papa from "papaparse";
 import * as _ from "lodash";

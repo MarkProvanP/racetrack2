@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Racer } from "../../../../common/racer";
 import { Team } from "../../../../common/team";
 import { Text } from '../../../../common/text';
-import { DataService } from '../../../shared/services/data.service';
-import { TextService, TextFilterOptions } from '../../../shared/services/text.service';
+import { DataService } from '../../../core/services/data.service';
+import { TextService, TextFilterOptions } from '../../../core/services/text.service';
 
 @Component({
   selector: "racer-texts",

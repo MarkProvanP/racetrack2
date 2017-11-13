@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
-import { TextService } from "../../../shared/services/text.service";
-import { UserService } from "../../../shared/services/user.service";
+import { TextService } from "../../../core/services/text.service";
+import { UserService } from "../../../core/services/user.service";
 import { PhoneNumber } from "../../../../common/text";
 
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material";

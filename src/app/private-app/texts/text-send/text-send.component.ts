@@ -3,8 +3,8 @@ import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { Racer } from '../../../../common/racer';
 import { Text, PhoneNumber } from '../../../../common/text';
 
-import { TextService } from '../../../shared/services/text.service';
-import { DataService } from '../../../shared/services/data.service';
+import { TextService } from '../../../core/services/text.service';
+import { DataService } from '../../../core/services/data.service';
 
 class Recipient {
   constructor(

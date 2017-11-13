@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Racer } from "../../../../common/racer";
 import { Team } from "../../../../common/team";
 import { Text } from '../../../../common/text';
-import { TextService } from '../../../shared/services/text.service';
+import { TextService } from '../../../core/services/text.service';
 
 @Component({
   selector: "all-texts",

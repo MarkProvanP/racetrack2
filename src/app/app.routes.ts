@@ -29,7 +29,7 @@ import { ImportComponent } from './private-app/import';
 import { MassTextComponent } from './private-app/mass-text';
 import { DebugComponent } from './private-app/misc/debug';
 
-import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './shared/guards';
+import { AuthenticatedGuard, UnauthenticatedGuard, PasswordResetGuard } from './core/guards';
 
 export const ROUTES: Routes = [
   {
