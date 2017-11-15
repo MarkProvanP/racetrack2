@@ -11,6 +11,8 @@ import { Team, TeamId } from '../../../common/team';
   styleUrls: ['./public-map.component.scss']
 })
 export class PublicMapComponent implements OnInit {
+  showingSidebar: boolean = true;
+
   teams: Team[] = [];
   default = {
     lat: 53.612805,
@@ -40,6 +42,11 @@ export class PublicMapComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
+
+  toggleSidenav(thing) {
+    this.showingSidebar = !this.showingSidebar;
+    thing.toggle();
+  }
 
   getIconUrlForTeam(team: Team) {
     return `/r2bcknd/misc/team-pin/${team.id}`

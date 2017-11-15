@@ -1,122 +1,133 @@
-<div class="public-map-container">
-  <agm-map [latitude]="default.lat" [longitude]="default.lng" [zoom]="default.zoom">
-    <agm-marker [latitude]="hostel.lat" [longitude]="hostel.lng" [iconUrl]="hostel.iconUrl"></agm-marker>
-    <agm-marker *ngFor="let team of showingAllTeams() | teamHasUpdate " [latitude]="(team.getLastUpdate().location.latitude)" [longitude]="(team.getLastUpdate().location.longitude)" [iconUrl]="getIconUrlForTeam(team)" [title]="team.name">
-      <agm-info-window>
-        <table>
-          <tr>
-            <th>Team name:</th>
-            <td> {{team.name}}</td>
-          </tr>
-          <tr>
-            <th>Affiliation:</th>
-            <td> {{team.affiliation}}</td>
-          </tr>
-          <tr>
-            <th>Racers:</th>
-            <td> {{team.getPrettyRacersList()}}</td>
-          </tr>
-          <tr>
-            <th>Current place:</th>
-            <td> {{team.getLastUpdate().location.place}}</td>
-          </tr>
-          <tr>
-            <th>Last Update:</th>
-            <td>{{team.getLastUpdate().notes}}</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <button mat-button="mat-button" (click)="showTeamProgress(team)">Track </button>
-            </td>
-          </tr>
-        </table>
-      </agm-info-window>
-    </agm-marker>
-    <ng-container *ngIf="allProgressLines">
-      <agm-polyline *ngFor="let team of showingAllTeams() | teamHasUpdate " [strokeColor]="team.color" [strokeWeight]="polylineSettings.strokeWeight" [strokeOpacity]="polylineSettings.strokeOpacity">
-        <agm-polyline-point *ngFor="let update of team.statusUpdates" [latitude]="update.location.latitude" [longitude]="update.location.longitude"></agm-polyline-point>
-      </agm-polyline>
-    </ng-container>
-    <agm-polyline *ngIf="teamShowingProgress" [strokeColor]="teamShowingProgress.color" [strokeWeight]="polylineSettings.strokeWeight" [strokeOpacity]="polylineSettings.strokeOpacity">
-      <agm-polyline-point *ngFor="let update of teamStatusUpdates()" [latitude]="update.location.latitude" [longitude]="update.location.longitude"></agm-polyline-point>
-    </agm-polyline>
-    <agm-marker *ngFor="let update of teamStatusUpdates()" [iconUrl]="getIconUrlForTeam(teamShowingProgress)" [latitude]="update.location.latitude" [longitude]="update.location.longitude">
-      <agm-info-window>
-        <table>
-          <tr>
-            <th>Time:</th>
-            <td>
-              <time-widget [time]="update.timestamp"></time-widget>
-            </td>
-          </tr>
-          <tr>
-            <th>Current place:</th>
-            <td> {{update.location.place}}</td>
-          </tr>
-          <tr>
-            <th>Update:</th>
-            <td>{{update.notes}}</td>
-          </tr>
-        </table>
-      </agm-info-window>
-    </agm-marker>
-  </agm-map>
-  <mat-card class="public-map-guide">
-    <div class="mat-card-top-padded"><img src="/assets/img/AppIcon.png" class="race-logo"/></div>
-    <div *ngIf="!teamShowingProgress" class="list-title">
-      <div class="title">Teams</div>
-      <div class="fill"></div>
-      <mat-slide-toggle [(ngModel)]="allProgressLines" class="toggle">Show All Progress Lines</mat-slide-toggle>
-    </div>
-    <div *ngIf="teamShowingProgress" class="list-title">
-      <div (click)="backToAllTeams()" class="small-button-icon">
-        <mat-icon>keyboard_backspace</mat-icon>
-      </div>
-      <div class="title">Progress for {{teamShowingProgress.name}}</div>
-    </div>
-    <div *ngIf="teamShowingProgress &amp;&amp; !teamStatusUpdates().length" class="no-updates"><i>No updates yet!</i></div>
-    <div *ngIf="showingAllTeams().length || teamStatusUpdates().length" class="list">
-      <div *ngFor="let team of showingAllTeams() | orderBy: &quot;+id&quot; " [ngClass]="{&quot;expanded&quot;: isTeamExpanded(team)}" class="list-item">
-        <div class="list-item-title">
-          <div class="text">
-            <div [ngStyle]="{&quot;background-color&quot;: team.color}" class="team-number">{{team.id}}</div>{{team.name}}
-          </div>
-          <div (click)="toggleTeamExpand(team)" class="button">
-            <mat-icon *ngIf="!isTeamExpanded(team)" class="small-button-icon">expand_more</mat-icon>
-            <mat-icon *ngIf="isTeamExpanded(team)" class="small-button-icon">expand_less</mat-icon>
-          </div>
-        </div>
-        <div class="list-item-detail flex-container">
-          <div class="expand">
-            <div class="detail-row"><span class="label">Racers</span><span class="value">{{team.getPrettyRacersList()}}</span></div>
-            <div *ngIf="team.getLastUpdate()" class="detail-row"><span class="label">Last location</span><span class="value">{{team.getLastPlaceName()}}</span></div>
-            <div *ngIf="team.affiliation" class="detail-row"><span class="label">Affiliation</span><span class="value">{{team.affiliation}}</span></div>
-            <div *ngIf="team.getLastUpdate()" class="detail-row"><span class="label">Last Update</span><span class="value">{{team.getLastUpdate().notes}}</span></div>
-          </div>
-          <div class="no-expand">
-            <button mat-button="mat-button" (click)="showTeamProgress(team)">Track</button>
-          </div>
-        </div>
-      </div>
-      <div *ngFor="let update of teamStatusUpdates()" class="list-item expanded flex-container">
-        <div class="no-expand">
-          <button mat-icon-button="mat-icon-button">
-            <mat-icon>place</mat-icon>
-          </button>
-        </div>
-        <div class="expand">
-          <div class="list-item-title">
-            <div class="text">{{update.location.place}}</div>
-          </div>
-          <div class="list-item-detail flex-container">
-            <div class="expand">
-              <div class="detail-row"><span class="label">Time</span><span class="value">
-                  <time-widget [time]="update.timestamp"></time-widget></span></div>
-              <div class="detail-row"><span class="label">Update</span><span class="value">{{update.notes}}</span></div>
+<div class='public-map-container'>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav mode='side' opened='showingSidebar'>
+            <div class='public-map-guide'>
+                <div *ngIf="!teamShowingProgress" class="list-title">
+                  <div class="title">Teams</div>
+                  <div class="fill"></div>
+                  <mat-slide-toggle [(ngModel)]="allProgressLines" class="toggle">Show All Progress Lines</mat-slide-toggle>
+                </div>
+                <div *ngIf="teamShowingProgress" class="list-title">
+                  <div (click)="backToAllTeams()" class="small-button-icon">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                  </div>
+                  <div class="title">Progress for {{teamShowingProgress.name}}</div>
+                </div>
+                <div *ngIf="teamShowingProgress &amp;&amp; !teamStatusUpdates().length" class="no-updates"><i>No updates yet!</i></div>
+                <div *ngIf="showingAllTeams().length || teamStatusUpdates().length" class="list">
+                  <div *ngFor="let team of showingAllTeams() | orderBy: &quot;+id&quot; " [ngClass]="{&quot;expanded&quot;: isTeamExpanded(team)}" class="list-item">
+                    <div class="list-item-title">
+                      <div class="text">
+                        <div [ngStyle]="{&quot;background-color&quot;: team.color}" class="team-number">{{team.id}}</div>{{team.name}}
+                      </div>
+                      <div (click)="toggleTeamExpand(team)" class="button">
+                        <mat-icon *ngIf="!isTeamExpanded(team)" class="small-button-icon">expand_more</mat-icon>
+                        <mat-icon *ngIf="isTeamExpanded(team)" class="small-button-icon">expand_less</mat-icon>
+                      </div>
+                    </div>
+                    <div class="list-item-detail flex-container">
+                      <div class="expand">
+                        <div class="detail-row"><span class="label">Racers</span><span class="value">{{team.getPrettyRacersList()}}</span></div>
+                        <div *ngIf="team.getLastUpdate()" class="detail-row"><span class="label">Last location</span><span class="value">{{team.getLastPlaceName()}}</span></div>
+                        <div *ngIf="team.affiliation" class="detail-row"><span class="label">Affiliation</span><span class="value">{{team.affiliation}}</span></div>
+                        <div *ngIf="team.getLastUpdate()" class="detail-row"><span class="label">Last Update</span><span class="value">{{team.getLastUpdate().notes}}</span></div>
+                      </div>
+                      <div class="no-expand">
+                        <button mat-button="mat-button" (click)="showTeamProgress(team)">Track</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngFor="let update of teamStatusUpdates()" class="list-item expanded flex-container">
+                    <div class="no-expand">
+                      <button mat-icon-button="mat-icon-button">
+                        <mat-icon>place</mat-icon>
+                      </button>
+                    </div>
+                    <div class="expand">
+                      <div class="list-item-title">
+                        <div class="text">{{update.location.place}}</div>
+                      </div>
+                      <div class="list-item-detail flex-container">
+                        <div class="expand">
+                          <div class="detail-row"><span class="label">Time</span><span class="value">
+                              <time-widget [time]="update.timestamp"></time-widget></span></div>
+                          <div class="detail-row"><span class="label">Update</span><span class="value">{{update.notes}}</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
-          </div>
+        </mat-sidenav>
+        <div class='map'>
+            <div class='icon-container'>
+                <button class='map-toggle-button' mat-mini-fab (click)='toggleSidenav(sidenav)'>
+                    <mat-icon *ngIf='showingSidebar'>chevron_left</mat-icon>
+                    <mat-icon *ngIf='!showingSidebar'>chevron_right</mat-icon>
+                </button>
+            </div>
+            <agm-map [latitude]="default.lat" [longitude]="default.lng" [zoom]="default.zoom">
+                    <agm-marker [latitude]="hostel.lat" [longitude]="hostel.lng" [iconUrl]="hostel.iconUrl"></agm-marker>
+                    <agm-marker *ngFor="let team of showingAllTeams() | teamHasUpdate " [latitude]="(team.getLastUpdate().location.latitude)" [longitude]="(team.getLastUpdate().location.longitude)" [iconUrl]="getIconUrlForTeam(team)" [title]="team.name">
+                      <agm-info-window>
+                        <table>
+                          <tr>
+                            <th>Team name:</th>
+                            <td> {{team.name}}</td>
+                          </tr>
+                          <tr>
+                            <th>Affiliation:</th>
+                            <td> {{team.affiliation}}</td>
+                          </tr>
+                          <tr>
+                            <th>Racers:</th>
+                            <td> {{team.getPrettyRacersList()}}</td>
+                          </tr>
+                          <tr>
+                            <th>Current place:</th>
+                            <td> {{team.getLastUpdate().location.place}}</td>
+                          </tr>
+                          <tr>
+                            <th>Last Update:</th>
+                            <td>{{team.getLastUpdate().notes}}</td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">
+                              <button mat-button="mat-button" (click)="showTeamProgress(team)">Track </button>
+                            </td>
+                          </tr>
+                        </table>
+                      </agm-info-window>
+                    </agm-marker>
+                    <ng-container *ngIf="allProgressLines">
+                      <agm-polyline *ngFor="let team of showingAllTeams() | teamHasUpdate " [strokeColor]="team.color" [strokeWeight]="polylineSettings.strokeWeight" [strokeOpacity]="polylineSettings.strokeOpacity">
+                        <agm-polyline-point *ngFor="let update of team.statusUpdates" [latitude]="update.location.latitude" [longitude]="update.location.longitude"></agm-polyline-point>
+                      </agm-polyline>
+                    </ng-container>
+                    <agm-polyline *ngIf="teamShowingProgress" [strokeColor]="teamShowingProgress.color" [strokeWeight]="polylineSettings.strokeWeight" [strokeOpacity]="polylineSettings.strokeOpacity">
+                      <agm-polyline-point *ngFor="let update of teamStatusUpdates()" [latitude]="update.location.latitude" [longitude]="update.location.longitude"></agm-polyline-point>
+                    </agm-polyline>
+                    <agm-marker *ngFor="let update of teamStatusUpdates()" [iconUrl]="getIconUrlForTeam(teamShowingProgress)" [latitude]="update.location.latitude" [longitude]="update.location.longitude">
+                      <agm-info-window>
+                        <table>
+                          <tr>
+                            <th>Time:</th>
+                            <td>
+                              <time-widget [time]="update.timestamp"></time-widget>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Current place:</th>
+                            <td> {{update.location.place}}</td>
+                          </tr>
+                          <tr>
+                            <th>Update:</th>
+                            <td>{{update.notes}}</td>
+                          </tr>
+                        </table>
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
         </div>
-      </div>
-    </div>
-  </mat-card>
+    </mat-sidenav-container>
 </div>

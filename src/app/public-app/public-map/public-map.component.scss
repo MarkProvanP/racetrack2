@@ -1,3 +1,29 @@
+.public-map-container {
+  height: 100vh;
+  background-color: aquamarine;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+.map {
+  height: 100vh;
+}
+
+.icon-container {
+  position: absolute;
+  z-index: 1;
+  height: 100vh;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.map-toggle-button {
+}
+
 .sebm-google-map-container {
   height: 100vh;
 }
@@ -20,12 +46,8 @@ $padding-amount: 12px;
 $reduced-padding-amount: 6px;
 
 .public-map-guide {
-  position: absolute;
-  left: 50px;
-  top: 50px;
   width: 350px;
   padding: 0;
-  height: 90vh;
   display: flex;
   flex-direction: column;
 
