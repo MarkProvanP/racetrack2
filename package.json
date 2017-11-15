@@ -19,6 +19,9 @@
     "backend:clean": "npm run rimraf -- bin",
     "rimraf": "rimraf"
   },
+  "engines": {
+    "node": "8.9.1"
+  },
   "private": true,
   "dependencies": {
     "@agm/core": "1.0.0-beta.2",
