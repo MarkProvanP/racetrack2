@@ -19,10 +19,13 @@ mat-sidenav-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
+
+  .map-toggle-button {
+    pointer-events: all;
+  }
 }
 
-.map-toggle-button {
-}
 
 .sebm-google-map-container {
   height: 100vh;
@@ -45,8 +48,20 @@ mat-sidenav-container {
 $padding-amount: 12px;
 $reduced-padding-amount: 6px;
 
+
+@media (min-width: 320px) {
+  .public-map-guide {
+    width: 250px;
+  }
+}
+
+@media (min-width:600px) {
+  .public-map-guide {
+    width: 350px;
+  }
+}
+
 .public-map-guide {
-  width: 350px;
   padding: 0;
   display: flex;
   flex-direction: column;
