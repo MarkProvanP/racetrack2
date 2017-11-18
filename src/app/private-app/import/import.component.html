@@ -1,59 +1,61 @@
-<mat-card>
-  <h3>Import</h3>
-  <input type="file" (change)="fileChangeEvent($event)"/>
-  <button mat-raised-button="mat-raised-button" *ngIf="parsedData &amp;&amp; !parsedTeams" (click)="process()">Process</button>
-  <table *ngIf="parsedData &amp;&amp; !parsedTeams">
-    <thead>
-      <tr>
-        <th>Team Number</th>
-        <th>Team Name</th>
-        <th>Affiliation</th>
-        <th>Racer Name</th>
-        <th>Racer ID</th>
-        <th>Mobile</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of parsedData">
-        <td>{{row.teamNumber}}</td>
-        <td>{{row.teamName}}</td>
-        <td>{{row.affiliation}}</td>
-        <td>{{row.racerName}}</td>
-        <td>{{row.racerId}}</td>
-        <td>
-          <phone-widget [number]="row.mobile"></phone-widget>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="team-list">
-    <mat-card *ngFor="let team of parsedTeams" class="team">
-      <mat-card-header>
-        <div mat-card-avatar="mat-card-avatar">
-          <h1 class="team-number">{{team.id}}</h1>
-        </div>
-        <mat-card-title>{{team.name}}</mat-card-title>
-        <mat-card-subtitle><span class="label">Affiliation:</span>{{team.affiliation}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="racer-list">
-          <mat-card *ngFor="let racer of team.racers" class="racer">
-            <div class="racer-detail"><span class="label">Name</span><span class="value">{{racer.name}}</span></div>
-            <div class="racer-detail"><span class="label">ID</span><span class="value">{{racer.id}}</span></div>
-            <div class="racer-detail"><span class="label">Email</span><span class="value">{{racer.email}}</span></div>
-            <div class="racer-detail"><span class="label">Phone</span><span class="value">
-                <div *ngFor="let contact of racer.phones" class="contact-number">
-                  <phone-widget [number]="contact.number"></phone-widget>
-                </div></span></div>
-            <div class="racer-detail"><span class="label">Creation status</span><span class="value">
-                <mat-icon *ngIf="isRacerCreated(racer.id)">done</mat-icon>
-                <mat-icon *ngIf="!isRacerCreated(racer.id)">cancel</mat-icon></span></div>
-          </mat-card>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button="mat-raised-button" color="primary" [disabled]="isTeamCreated(team)" (click)="createTeam(team)">Create</button>
-      </mat-card-actions>
+<div class='import-component-wrapper fill-parent'>
+  <mat-card class='fixed-body scrollable'>
+      <h3>Import</h3>
+      <input type="file" (change)="fileChangeEvent($event)"/>
+      <button mat-raised-button="mat-raised-button" *ngIf="parsedData &amp;&amp; !parsedTeams" (click)="process()">Process</button>
+      <table *ngIf="parsedData &amp;&amp; !parsedTeams">
+        <thead>
+          <tr>
+            <th>Team Number</th>
+            <th>Team Name</th>
+            <th>Affiliation</th>
+            <th>Racer Name</th>
+            <th>Racer ID</th>
+            <th>Mobile</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of parsedData">
+            <td>{{row.teamNumber}}</td>
+            <td>{{row.teamName}}</td>
+            <td>{{row.affiliation}}</td>
+            <td>{{row.racerName}}</td>
+            <td>{{row.racerId}}</td>
+            <td>
+              <phone-widget [number]="row.mobile"></phone-widget>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="team-list">
+        <mat-card *ngFor="let team of parsedTeams" class="team">
+          <mat-card-header>
+            <div mat-card-avatar="mat-card-avatar">
+              <h1 class="team-number">{{team.id}}</h1>
+            </div>
+            <mat-card-title>{{team.name}}</mat-card-title>
+            <mat-card-subtitle><span class="label">Affiliation:</span>{{team.affiliation}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="racer-list">
+              <mat-card *ngFor="let racer of team.racers" class="racer">
+                <div class="racer-detail"><span class="label">Name</span><span class="value">{{racer.name}}</span></div>
+                <div class="racer-detail"><span class="label">ID</span><span class="value">{{racer.id}}</span></div>
+                <div class="racer-detail"><span class="label">Email</span><span class="value">{{racer.email}}</span></div>
+                <div class="racer-detail"><span class="label">Phone</span><span class="value">
+                    <div *ngFor="let contact of racer.phones" class="contact-number">
+                      <phone-widget [number]="contact.number"></phone-widget>
+                    </div></span></div>
+                <div class="racer-detail"><span class="label">Creation status</span><span class="value">
+                    <mat-icon *ngIf="isRacerCreated(racer.id)">done</mat-icon>
+                    <mat-icon *ngIf="!isRacerCreated(racer.id)">cancel</mat-icon></span></div>
+              </mat-card>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button="mat-raised-button" color="primary" [disabled]="isTeamCreated(team)" (click)="createTeam(team)">Create</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </mat-card>
-  </div>
-</mat-card>
+</div>

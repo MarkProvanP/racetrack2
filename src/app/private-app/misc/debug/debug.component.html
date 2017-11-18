@@ -1,81 +1,84 @@
-<h1>Debug Things</h1>
-<div>
-  <h2>Send authenticated API request!</h2>
-  <mat-button-toggle-group name="apiMethod" [(ngModel)]="apiRequest.method">
-    <mat-button-toggle value="get">GET</mat-button-toggle>
-    <mat-button-toggle value="post">POST</mat-button-toggle>
-    <mat-button-toggle value="put">PUT</mat-button-toggle>
-    <mat-button-toggle value="delete">DELETE</mat-button-toggle>
-  </mat-button-toggle-group>
-  <mat-input-container>
-    <input matInput="matInput" [(ngModel)]="apiRequest.endpoint" placeholder="Endpoint"/>
-  </mat-input-container>
-  <mat-input-container>
-    <textarea matInput="matInput" [(ngModel)]="apiRequest.body" placeholder="Body"></textarea>
-  </mat-input-container>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="makeApiCall()">Execute!</button>
-  <div class="api-response">{{apiResponse}}</div>
-  <h2>Email</h2>
-  <div>
+<div class='debug-component-wrapper fill-parent'>
+  <div class='fixed-body scrollable'>
+    <h1>Debug Things</h1>    
+    <h2>Send authenticated API request!</h2>
+    <mat-button-toggle-group name="apiMethod" [(ngModel)]="apiRequest.method">
+      <mat-button-toggle value="get">GET</mat-button-toggle>
+      <mat-button-toggle value="post">POST</mat-button-toggle>
+      <mat-button-toggle value="put">PUT</mat-button-toggle>
+      <mat-button-toggle value="delete">DELETE</mat-button-toggle>
+    </mat-button-toggle-group>
     <mat-input-container>
-      <input matInput="matInput" type="email" [(ngModel)]="email.to" placeholder="To:"/>
+      <input matInput="matInput" [(ngModel)]="apiRequest.endpoint" placeholder="Endpoint"/>
     </mat-input-container>
     <mat-input-container>
-      <input matInput="matInput" [(ngModel)]="email.subject" placeholder="Re:"/>
+      <textarea matInput="matInput" [(ngModel)]="apiRequest.body" placeholder="Body"></textarea>
     </mat-input-container>
-    <mat-input-container>
-      <textarea matInput="matInput" [(ngModel)]="email.body" placeholder="Body:"></textarea>
-    </mat-input-container>
-    <button mat-raised-button="mat-raised-button" color="primary" (click)="sendEmail()">Send</button>
-  </div>
-  <h2>Give everyone pretty colours!</h2>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="loadTeams()">Load teams!</button>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="prettyColors()" [disabled]="teams">Prettify!</button>
-  <table>
-    <thead>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="makeApiCall()">Execute!</button>
+    <div class="api-response">{{apiResponse}}</div>
+    <h2>Email</h2>
+    <div>
+      <mat-input-container>
+        <input matInput="matInput" type="email" [(ngModel)]="email.to" placeholder="To:"/>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput="matInput" [(ngModel)]="email.subject" placeholder="Re:"/>
+      </mat-input-container>
+      <mat-input-container>
+        <textarea matInput="matInput" [(ngModel)]="email.body" placeholder="Body:"></textarea>
+      </mat-input-container>
+      <button mat-raised-button="mat-raised-button" color="primary" (click)="sendEmail()">Send</button>
+    </div>
+    <h2>Give everyone pretty colours!</h2>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="loadTeams()">Load teams!</button>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="prettyColors()" [disabled]="teams">Prettify!</button>
+    <table>
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Name</td>
+          <td>Color</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams | orderBy: &quot;+id&quot;">
+          <td>{{team.id}}</td>
+          <td>{{team.name}}</td>
+          <td>
+            <input type="color" [(ngModel)]="team.color"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Fetch everything from twilio!</h2>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="twilioFetchBegin()" [disabled]="currentlyFetchingTwilio">Start Fetch!</button>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="twilioFetchCheck()" [disabled]="!currentlyFetchingTwilio">Check Fetch!</button>
+    <button mat-raised-button="mat-raised-button" color="primary" (click)="importSelectedTexts()" [disabled]="!allTwilioTexts">Import Selected!</button>
+    <table *ngIf="allTwilioTexts">
       <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Color</td>
+        <th>Import</th>
+        <th>To</th>
+        <th>From</th>
+        <th>Time</th>
+        <th>Body</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let team of teams | orderBy: &quot;+id&quot;">
-        <td>{{team.id}}</td>
-        <td>{{team.name}}</td>
+      <tr *ngFor="let text of allTwilioTexts">
         <td>
-          <input type="color" [(ngModel)]="team.color"/>
+          <mat-checkbox *ngIf="!text.imported" [(ngModel)]="text.import"></mat-checkbox>
+          <mat-icon *ngIf="text.imported">check</mat-icon>
         </td>
+        <td>
+          <phone-widget [number]="textNumber(text.to)"></phone-widget>
+        </td>
+        <td>
+          <phone-widget [number]="textNumber(text.from)"></phone-widget>
+        </td>
+        <td>
+          <time-widget [time]="textTime(text)"></time-widget>
+        </td>
+        <td>{{text.body}}</td>
       </tr>
-    </tbody>
-  </table>
-  <h2>Fetch everything from twilio!</h2>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="twilioFetchBegin()" [disabled]="currentlyFetchingTwilio">Start Fetch!</button>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="twilioFetchCheck()" [disabled]="!currentlyFetchingTwilio">Check Fetch!</button>
-  <button mat-raised-button="mat-raised-button" color="primary" (click)="importSelectedTexts()" [disabled]="!allTwilioTexts">Import Selected!</button>
-  <table *ngIf="allTwilioTexts">
-    <tr>
-      <th>Import</th>
-      <th>To</th>
-      <th>From</th>
-      <th>Time</th>
-      <th>Body</th>
-    </tr>
-    <tr *ngFor="let text of allTwilioTexts">
-      <td>
-        <mat-checkbox *ngIf="!text.imported" [(ngModel)]="text.import"></mat-checkbox>
-        <mat-icon *ngIf="text.imported">check</mat-icon>
-      </td>
-      <td>
-        <phone-widget [number]="textNumber(text.to)"></phone-widget>
-      </td>
-      <td>
-        <phone-widget [number]="textNumber(text.from)"></phone-widget>
-      </td>
-      <td>
-        <time-widget [time]="textTime(text)"></time-widget>
-      </td>
-      <td>{{text.body}}</td>
-    </tr>
-  </table>
+    </table>
+  </div>
+ 
 </div>

@@ -1,4 +1,4 @@
-<div class="updates-by-team master-detail">
+<div class="updates-by-team master-detail fill-parent">
   <div class="teams-list master">
     <mat-nav-list><a mat-list-item="mat-list-item" *ngFor="let team of teams | orderBy: '+id'" (click)="routeToTeam(team)" [routerLink]="getTeamLink(team)" routerLinkActive="selected">
         <div mat-list-avatar="mat-list-avatar">
