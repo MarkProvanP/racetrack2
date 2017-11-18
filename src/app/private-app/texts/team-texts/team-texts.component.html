@@ -7,7 +7,7 @@
         <h3 mat-line="mat-line" [ngClass]="{unread: numberUnreadMessagesForTeam(team)}">({{numberUnreadMessagesForTeam(team)}}) {{team.name}}</h3>
         <p mat-line="mat-line">{{team.getPrettyRacersList()}}</p></a></mat-nav-list>
   </div>
-  <div class='component-child-fill'>
+  <div class='detail component-child-fill'>
       <texts-list [texts]="selectedTeamTexts" [display]="displayOptions"></texts-list>
   </div>
 </div>

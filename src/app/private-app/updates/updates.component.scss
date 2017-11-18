@@ -1,18 +1,3 @@
-.master-detail {
-  display: flex;
-  flex: 1;
-  .master {
-    width: 300px;
-    overflow-y: scroll;
-    background-color: white;
-  }
-
-  .detail {
-    flex: 1;
-    overflow-y: scroll;
-  }
-}
-
 .team-number {
   margin: 0;
   background-color: #EEE;
@@ -43,14 +28,6 @@ md-select {
 
   display: flex;
   flex-direction: column;
-}
-
-/deep/ .md-list-item:hover {
-  background-color: lightgrey;
-}
-
-/deep/ .md-list-item.selected {
-  background-color: #EEEEEE;
 }
 
 .updates-list {

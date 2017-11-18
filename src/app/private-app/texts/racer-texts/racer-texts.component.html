@@ -3,7 +3,7 @@
     <mat-nav-list><a mat-list-item="mat-list-item" *ngFor="let racer of racers | orderBy: &quot;+name&quot; " [routerLink]="getRacerLink(racer)" routerLinkActive="selected">
         <h3 mat-line="mat-line"> ({{numberUnreadMessagesForRacer(racer)}}) {{racer.name}}</h3></a></mat-nav-list>
   </div>
-  <div class='component-child-fill'>
+  <div class='detail component-child-fill'>
       <texts-list [texts]="selectedRacerTexts" [display]="displayOptions" *ngIf="selectedRacerTexts"></texts-list>      
   </div>
 </div>

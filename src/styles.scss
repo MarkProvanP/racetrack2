@@ -45,3 +45,21 @@ body {
 .component-child-fill > * {
   height: 100%;
 }
+
+.master-detail {
+  display: flex;
+  .master {
+    overflow-y: scroll;
+    background-color: white;
+    width: 300px;
+
+    .selected {
+      background-color: #EEE !important;      
+    }
+  }
+
+  .detail {
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
