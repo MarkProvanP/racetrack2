@@ -6,21 +6,12 @@ import { TwilioInboundText, TwilioOutboundText } from '../common/text';
 import { newlineReplace } from './utils';
 import { APP_NAME, APP_URL, HOSTNAME, GMAIL_USER, GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN } from './constants';
 
-
 const ERROR_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.ERROR_EMAIL_RECIPIENTS.split(","));
 const STATUS_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.STATUS_EMAIL_RECIPIENTS.split(","));
 const DATA_EMAIL_RECIPIENTS = [GMAIL_USER].concat(process.env.DATA_EMAIL_RECIPIENTS.split(","));
 console.log(`Will send error emails to ${ERROR_EMAIL_RECIPIENTS}`);
 console.log(`Will send status emails to ${STATUS_EMAIL_RECIPIENTS}`);
 console.log(`Will send data emails to ${DATA_EMAIL_RECIPIENTS}`);
-
-
-const XOAUTH2_SETTINGS = {
-    user: GMAIL_USER,
-    clientId: GMAIL_CLIENT_ID,
-    clientSecret: GMAIL_CLIENT_SECRET,
-    refreshToken: GMAIL_REFRESH_TOKEN,
-  }
 
 const EMAIL_TEMPLATES = {
   userCreated: pug.compileFile("src/email-templates/user-created.pug"),
@@ -37,8 +28,16 @@ export class Emailer {
   
     constructor() {
       this.smtpTransport = nodemailer.createTransport({
-        service: "Gmail",
-        auth: XOAUTH2_SETTINGS
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: GMAIL_USER,
+          clientId: GMAIL_CLIENT_ID,
+          clientSecret: GMAIL_CLIENT_SECRET,
+          refreshToken: GMAIL_REFRESH_TOKEN
+        }
       })
   
       this.smtpTransport.verify((err, success) => {
@@ -67,7 +66,6 @@ export class Emailer {
             console.error(err);
             reject(err);
           } else {
-            console.log(res);
             resolve(res);
           }
         })
