@@ -26,3 +26,22 @@ body {
   font-family: Roboto, sans-serif;
 }
 
+.fill-parent {
+  height: 100%;
+}
+
+.fixed-header {
+
+}
+
+.fixed-body {
+
+}
+
+.fixed-body.scrollable {
+  overflow-y: scroll;
+}
+
+.component-child-fill > * {
+  height: 100%;
+}

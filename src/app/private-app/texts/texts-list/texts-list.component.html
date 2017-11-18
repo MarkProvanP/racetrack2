@@ -1,13 +1,13 @@
-<div class="text-list-wrapper">
-  <div class="filter-options"><span class="filter-options-name">Showing</span>
+<div class="text-list-wrapper fill-parent">
+  <div class="filter-options fixed-header"><span class="filter-options-name">Showing</span>
     <mat-button-toggle-group name="show" [(ngModel)]="readFilterOption" (change)="onFilterUpdate()">
       <mat-button-toggle value="read">Read</mat-button-toggle>
       <mat-button-toggle value="unread">Unread</mat-button-toggle>
       <mat-button-toggle value="all" checked="checked">All</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
-  <div *ngIf="!displayedTexts.length" class="no-texts-to-show"><i>No texts to show!</i></div>
-  <div *ngIf="displayedTexts.length" class="texts-list">
+  <div *ngIf="!displayedTexts.length" class="no-texts-to-show fixed-body scrollable"><i>No texts to show!</i></div>
+  <div *ngIf="displayedTexts.length" class="texts-list fixed-body scrollable">
     <div *ngIf="textsBeforeFirst">
       <button mat-raised-button="mat-raised-button" color="primary" (click)="showMoreBefore()">Show more</button> of {{textsBeforeFirst}} previous texts
     </div>

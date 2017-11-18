@@ -1,7 +1,9 @@
-<div class="texts-by-racer master-detail">
+<div class="texts-by-racer master-detail fill-parent">
   <div class="racers-list master">
     <mat-nav-list><a mat-list-item="mat-list-item" *ngFor="let racer of racers | orderBy: &quot;+name&quot; " [routerLink]="getRacerLink(racer)" routerLinkActive="selected">
         <h3 mat-line="mat-line"> ({{numberUnreadMessagesForRacer(racer)}}) {{racer.name}}</h3></a></mat-nav-list>
   </div>
-  <texts-list [texts]="selectedRacerTexts" [display]="displayOptions" *ngIf="selectedRacerTexts"></texts-list>
+  <div class='component-child-fill'>
+      <texts-list [texts]="selectedRacerTexts" [display]="displayOptions" *ngIf="selectedRacerTexts"></texts-list>      
+  </div>
 </div>

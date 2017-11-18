@@ -1,2 +1,6 @@
-<nav mat-tab-nav-bar="mat-tab-nav-bar"><a mat-tab-link="mat-tab-link" *ngFor="let tabLink of tabs; let i = index" [routerLink]=" ['/safetyteam', 'texts', tabLink.link] " [active]="activeLinkIndex === i" (click)="activeLinkIndex = i">{{tabLink.label}}</a></nav>
-<router-outlet></router-outlet>
+<nav mat-tab-nav-bar="mat-tab-nav-bar" class='fixed-header'>
+    <a mat-tab-link="mat-tab-link" *ngFor="let tabLink of tabs; let i = index" [routerLink]=" ['/safetyteam', 'texts', tabLink.link] " [active]="activeLinkIndex === i" (click)="activeLinkIndex = i">{{tabLink.label}}</a>
+</nav>
+<div class='fixed-body'>
+    <router-outlet></router-outlet>
+</div>

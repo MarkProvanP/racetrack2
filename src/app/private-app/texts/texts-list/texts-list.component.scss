@@ -1,3 +1,11 @@
+.fixed-header {
+  
+}
+  
+.fixed-body {
+  height: calc(100% - 49px);
+}
+
 .texts-list {
   //display: flex;
   flex-direction: column;

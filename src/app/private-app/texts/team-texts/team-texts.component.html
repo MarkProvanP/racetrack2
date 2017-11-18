@@ -1,4 +1,4 @@
-<div class="texts-by-team master-detail">
+<div class="texts-by-team master-detail fill-parent">
   <div class="teams-list master">
     <mat-nav-list><a mat-list-item="mat-list-item" *ngFor="let team of teams | orderBy: &quot;+id&quot; " [routerLink]="getTeamLink(team)" routerLinkActive="selected">
         <div mat-list-avatar="mat-list-avatar">
@@ -7,5 +7,7 @@
         <h3 mat-line="mat-line" [ngClass]="{unread: numberUnreadMessagesForTeam(team)}">({{numberUnreadMessagesForTeam(team)}}) {{team.name}}</h3>
         <p mat-line="mat-line">{{team.getPrettyRacersList()}}</p></a></mat-nav-list>
   </div>
-  <texts-list [texts]="selectedTeamTexts" [display]="displayOptions"></texts-list>
+  <div class='component-child-fill'>
+      <texts-list [texts]="selectedTeamTexts" [display]="displayOptions"></texts-list>
+  </div>
 </div>
