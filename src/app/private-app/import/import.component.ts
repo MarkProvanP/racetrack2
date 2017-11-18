@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
+import { MatTableDataSource } from '@angular/material';
+
 import { Team, TeamId } from "../../../common/team";
 import { Racer, RacerId } from "../../../common/racer";
 import { PhoneNumber } from "../../../common/text";
@@ -20,7 +22,7 @@ function UsernameToEmail(username: String) {
   return username + "@st-andrews.ac.uk";
 }
 
-interface DataRow {
+interface CSVRow {
   teamNumber: TeamId,
   teamName: string,
   affiliation: string,
@@ -48,7 +50,10 @@ interface ParseRacer {
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent implements OnInit {
-  parsedData: DataRow[];
+  csvDataSource: MatTableDataSource<CSVRow>;
+  displayedColumns = ['teamNumber', 'teamName', 'affiliation', 'racerName', 'racerId', 'mobile'];
+
+  parsedData: CSVRow[];
   parsedTeams: Team[];
 
   teams: Team[];
@@ -83,6 +88,8 @@ export class ImportComponent implements OnInit {
       });
       console.log(data);
       this.parsedData = data.data.map(row => this.parseRow(row))
+      this.csvDataSource = new MatTableDataSource(this.parsedData);
+      console.log(this.csvDataSource)
       this.parsedTeams = undefined;
     }
 
@@ -125,7 +132,11 @@ export class ImportComponent implements OnInit {
   }
 
   parseRow(row) {
-    let mobile = PhoneNumber.parse(row[RACER_MOBILE]);
+    try {
+      var mobile = PhoneNumber.parse(row[RACER_MOBILE]);
+    } catch (e) {
+      console.warn('error parsing racer number!', e);
+    }
     let parsed = {
       teamNumber: row[TEAM_NUMBER],
       teamName: row[TEAM_NAME],
@@ -138,10 +149,10 @@ export class ImportComponent implements OnInit {
   }
 
   isRacerCreated(racer: Racer) {
-    return this.racers.filter(r => racer.id == r.id).length > 0;
+    return racer && this.racers.filter(r => racer.id == r.id).length > 0;
   }
 
   isTeamCreated(team: Team) {
-    return this.teams.filter(t => team.id == t.id).length > 0;
+    return team && this.teams.filter(t => team.id == t.id).length > 0;
   }
 }

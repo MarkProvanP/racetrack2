@@ -23,6 +23,11 @@ h3 {
   height: 100%;
 }
 
+mat-table {
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+}
+
 .team-list {
   height: 100%;
   overflow-y: scroll;

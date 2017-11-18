@@ -1,74 +1,104 @@
 <div class='import-component-wrapper fill-parent'>
   <div class='fixed-header'>
-      <h3>Import</h3>      
+    <h3>Import</h3>
   </div>
   <div class='fixed-body'>
-      <mat-card class='import-card'>
-        <mat-horizontal-stepper linear class='fill-parent'>
-          <mat-step label='Upload CSV'>
-              <input type="file" (change)="fileChangeEvent($event)"/>
-              <button md-raised-button matStepperNext>Next</button>
-          </mat-step>
-          <mat-step label='View CSV Data'>
-              <button mat-raised-button matStepperNext *ngIf="parsedData" (click)="process()">Next</button>              
-              <table *ngIf="parsedData">
-                  <thead>
-                    <tr>
-                      <th>Team Number</th>
-                      <th>Team Name</th>
-                      <th>Affiliation</th>
-                      <th>Racer Name</th>
-                      <th>Racer ID</th>
-                      <th>Mobile</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let row of parsedData">
-                      <td>{{row.teamNumber}}</td>
-                      <td>{{row.teamName}}</td>
-                      <td>{{row.affiliation}}</td>
-                      <td>{{row.racerName}}</td>
-                      <td>{{row.racerId}}</td>
-                      <td>
-                        <phone-widget [number]="row.mobile"></phone-widget>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>                
-          </mat-step>
-          <mat-step label='Verify import'>
-              <div class="team-list">
-                  <mat-card *ngFor="let team of parsedTeams" class="team">
-                    <mat-card-header>
-                      <div mat-card-avatar="mat-card-avatar">
-                        <h1 class="team-number">{{team.id}}</h1>
-                      </div>
-                      <mat-card-title>{{team.name}}</mat-card-title>
-                      <mat-card-subtitle><span class="label">Affiliation:</span>{{team.affiliation}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <div class="racer-list">
-                        <mat-card *ngFor="let racer of team.racers" class="racer">
-                          <div class="racer-detail"><span class="label">Name</span><span class="value">{{racer.name}}</span></div>
-                          <div class="racer-detail"><span class="label">ID</span><span class="value">{{racer.id}}</span></div>
-                          <div class="racer-detail"><span class="label">Email</span><span class="value">{{racer.email}}</span></div>
-                          <div class="racer-detail"><span class="label">Phone</span><span class="value">
-                              <div *ngFor="let contact of racer.phones" class="contact-number">
-                                <phone-widget [number]="contact.number"></phone-widget>
-                              </div></span></div>
-                          <div class="racer-detail"><span class="label">Creation status</span><span class="value">
-                              <mat-icon *ngIf="isRacerCreated(racer.id)">done</mat-icon>
-                              <mat-icon *ngIf="!isRacerCreated(racer.id)">cancel</mat-icon></span></div>
-                        </mat-card>
-                      </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                      <button mat-raised-button="mat-raised-button" color="primary" [disabled]="isTeamCreated(team)" (click)="createTeam(team)">Create</button>
-                    </mat-card-actions>
-                  </mat-card>
-                </div>
-          </mat-step>
-        </mat-horizontal-stepper>
-      </mat-card>    
+    <mat-card class='import-card'>
+      <mat-horizontal-stepper linear class='fill-parent'>
+        <mat-step label='Upload CSV'>
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <button mat-raised-button matStepperNext>Next</button>
+        </mat-step>
+        <mat-step label='View CSV Data'>
+          <button mat-raised-button matStepperNext *ngIf="parsedData" (click)="process()">Next</button>
+          <mat-table #table [dataSource]='csvDataSource' *ngIf='csvDataSource'>
+            <ng-container matColumnDef="teamNumber">
+              <mat-header-cell *matHeaderCellDef> Team Number </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.teamNumber}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="teamName">
+              <mat-header-cell *matHeaderCellDef> Team Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.teamName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="affiliation">
+              <mat-header-cell *matHeaderCellDef> Affiliation </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.affiliation}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="racerName">
+              <mat-header-cell *matHeaderCellDef> Racer Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.racerName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="racerId">
+              <mat-header-cell *matHeaderCellDef> Racer Id </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.racerId}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="mobile">
+              <mat-header-cell *matHeaderCellDef> Mobile </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <phone-widget [number]="element.mobile"></phone-widget>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-step>
+        <mat-step label='Verify import'>
+          <div class='fill-parent scrollable'>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor='let team of parsedTeams'>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{team.id}} {{team.name}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{team.racers.length}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-accordion>
+                  <mat-expansion-panel *ngFor='let racer of team.racers'>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{racer.id}} {{racer.name}}
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        {{racer.phone}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="racer-detail">
+                      <span class="label">Name</span>
+                      <span class="value">{{racer.name}}</span>
+                    </div>
+                    <div class="racer-detail">
+                      <span class="label">ID</span>
+                      <span class="value">{{racer.id}}</span>
+                    </div>
+                    <div class="racer-detail">
+                      <span class="label">Email</span>
+                      <span class="value">{{racer.email}}</span>
+                    </div>
+                    <div class="racer-detail">
+                      <span class="label">Phone</span>
+                      <span class="value">
+                        <div *ngFor="let contact of racer.phones" class="contact-number">
+                          <phone-widget [number]="contact.number"></phone-widget>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="racer-detail">
+                      <span class="label">Creation status</span>
+                      <span class="value">
+                        <mat-icon *ngIf="isRacerCreated(racer.id)">done</mat-icon>
+                        <mat-icon *ngIf="!isRacerCreated(racer.id)">cancel</mat-icon>
+                      </span>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card>
   </div>
 </div>

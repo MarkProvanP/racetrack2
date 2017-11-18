@@ -20,6 +20,7 @@ import {
   MatProgressSpinnerModule,
   MatStepperModule,
   MatTableModule,
+  MatExpansionModule,
 } from '@angular/material';
 
 import { NgModule, ApplicationRef } from '@angular/core';
@@ -47,6 +48,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
   MatProgressSpinnerModule,
   MatStepperModule,
   MatTableModule,
+  MatExpansionModule,
   ],
   exports: [
     MatButtonModule,
@@ -69,7 +71,8 @@ import { NgModule, ApplicationRef } from '@angular/core';
   MatButtonToggleModule,
   MatProgressSpinnerModule,
   MatStepperModule,
-  MatTableModule
+  MatTableModule,
+  MatExpansionModule,
   ]
 })
 export class RacetrackMaterialModule {
