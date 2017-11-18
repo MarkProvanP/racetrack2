@@ -1,4 +1,31 @@
+.fixed-header {
+  height: 50px;
+}
+
+.fixed-body {
+  height: calc(100% - 68px);
+}
+
+h3 {
+  margin: 0px;
+}
+
+.import-card {
+  height: calc(100% - 100px);
+  margin: 10px;
+}
+
+/deep/ .mat-horizontal-content-container {
+  height: calc(100% - 72px);
+}
+
+/deep/ .mat-horizontal-stepper-content {
+  height: 100%;
+}
+
 .team-list {
+  height: 100%;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 }
